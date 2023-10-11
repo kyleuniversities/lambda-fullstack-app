@@ -1,3 +1,7 @@
+# lambda
+
+This is the frontend portion of a project for creating a multipurpose functional API server.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
