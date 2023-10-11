@@ -1,3 +1,4 @@
+import { StringMap } from '../../common/util/string';
 import { InputTextSplitter } from '../util/input';
 
 export class InputHelper {
@@ -6,7 +7,7 @@ export class InputHelper {
   /**
    * Splits an input into parts
    */
-  public static splitInputText(text: string): string[] {
-    return InputTextSplitter.newInstance().split(text);
+  public static splitInputText(environment: StringMap, text: string): string[] {
+    return InputTextSplitter.newInstance(environment).split(text);
   }
 }

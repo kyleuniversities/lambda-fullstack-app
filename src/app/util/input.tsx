@@ -1,6 +1,6 @@
 import { ArrayHelper } from '../../common/helper/ArrayHelper';
 import { StringHelper } from '../../common/helper/StringHelper';
-import { ifThen } from '../../common/util/conditional';
+import { ifElseReturn, ifThen } from '../../common/util/conditional';
 import { StringMap } from '../../common/util/string';
 
 const QUOTE_ESCAPE_CHARACTER_MAP = StringHelper.newStringMapFromDoubleArray([
@@ -10,15 +10,12 @@ const QUOTE_ESCAPE_CHARACTER_MAP = StringHelper.newStringMapFromDoubleArray([
   ['t', '\t'],
 ]);
 
-const UNQUOTE_ESCAPE_CHARACTER_MAP = StringHelper.newStringMapFromDoubleArray([
-  ['$', '$'],
-]);
-
 /**
  * Utility class for splitting input text into parts
  */
 export class InputTextSplitter {
   // Instance Fields
+  private environment: StringMap;
   private text: string;
   private parts: string[];
   private part: string[];
@@ -26,12 +23,13 @@ export class InputTextSplitter {
   private i;
 
   // New Instance Method
-  public static newInstance(): InputTextSplitter {
-    return new InputTextSplitter();
+  public static newInstance(environment: StringMap): InputTextSplitter {
+    return new InputTextSplitter(environment);
   }
 
   // Constructor Method
-  protected constructor() {
+  protected constructor(environment: StringMap) {
+    this.environment = environment;
     this.text = '';
     this.parts = [];
     this.part = [];
@@ -53,18 +51,18 @@ export class InputTextSplitter {
 
   // Processing Methods
   private processQuotedCharacter(ch: string): void {
-    this.processCharacter(ch, false, false, QUOTE_ESCAPE_CHARACTER_MAP);
+    this.processCharacter(ch, false, false, true);
   }
 
   private processUnquotedCharacter(ch: string): void {
-    this.processCharacter(ch, true, true, UNQUOTE_ESCAPE_CHARACTER_MAP);
+    this.processCharacter(ch, true, true, false);
   }
 
   private processCharacter(
     ch: string,
     canToggleToWithinQuotes: boolean,
     canPopParts: boolean,
-    escapeCharacterMap: StringMap
+    canEscapeCharacters: boolean
   ): void {
     switch (ch) {
       case '"':
@@ -76,12 +74,17 @@ export class InputTextSplitter {
         ifThen(!canPopParts, () => this.appendPart(ch));
         break;
       case '\\':
-        this.appendPart(escapeCharacterMap.getValue(this.nextCharAt()));
-        this.i++;
+        ifThen(canEscapeCharacters, () => this.processEscapeCharacter());
+        ifThen(!canEscapeCharacters, () => this.appendPart(ch));
         break;
       default:
         this.appendPart(ch);
     }
+  }
+
+  private processEscapeCharacter(): void {
+    this.appendPart(QUOTE_ESCAPE_CHARACTER_MAP.getValue(this.nextCharAt()));
+    this.i++;
   }
 
   // Iteration Methods
@@ -110,11 +113,16 @@ export class InputTextSplitter {
   }
 
   private compilePartText(): string {
-    let partText = this.part.join('');
-    if (partText.charAt(0) === '"') {
-      partText = partText.substring(1, partText.length - 1);
+    const rawPartText = this.part.join('');
+    const firstCharacter = rawPartText.charAt(0);
+    switch (firstCharacter) {
+      case '"':
+        return rawPartText.substring(1, rawPartText.length - 1);
+      case '$':
+        return this.environment.getValue(rawPartText.substring(1));
+      default:
+        return rawPartText;
     }
-    return partText;
   }
 
   // Functional Initialization Methods
