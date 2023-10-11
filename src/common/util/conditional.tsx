@@ -1,7 +1,7 @@
 /**
  * Utility function for performing concise if-statements
  */
-export const ifThen = (condition: boolean, action: () => void) => {
+export const ifThen = (condition: boolean, action: () => void): void => {
   if (condition) {
     action();
   }
@@ -14,7 +14,7 @@ export const ifElseReturn = <T,>(
   condition: boolean,
   acceptanceValue: () => T,
   rejectionValue: () => T
-) => {
+): T => {
   if (condition) {
     return acceptanceValue();
   }
