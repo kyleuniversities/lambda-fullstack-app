@@ -37,7 +37,7 @@ export const LambdaView = (props: LambdaViewProps): JSX.Element => {
             <LambdaMessageArea value={message} />
             <LambdaInputField
               value={input}
-              onKeyDown={props.onInputKeyDown}
+              onKeyDown={updateOnChange(props.onInputKeyDown)}
               onChange={updateOnChange(props.onInputChange)}
             />
             <LambdaBodyArea

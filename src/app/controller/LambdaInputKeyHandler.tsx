@@ -1,3 +1,4 @@
+import { InputHelper } from '../helper/InputHelper';
 import { LambdaModel } from '../model/LambdaModel';
 
 export class LambdaInputKeyHandler {
@@ -34,6 +35,10 @@ export class LambdaInputKeyHandler {
 
   private handleEnterEvent(event: any): void {
     alert('ENTER has been entered');
+    const inputText = this.model.getInput();
+    const parts = InputHelper.splitInputText(inputText);
+    const outputText = '<<size: ' + parts.length + '>>\n' + parts.join('\n');
+    this.model.setOutput(outputText);
     event.preventDefault();
   }
 }
