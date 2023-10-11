@@ -1,5 +1,7 @@
 .App {
-  text-align: center;
+  text-align: left;
+  background-color: rgb(255, 244, 232);
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -26,6 +28,13 @@
 
 .App-link {
   color: #61dafb;
+}
+
+#lambda-view {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 @keyframes App-logo-spin {
