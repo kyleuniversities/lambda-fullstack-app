@@ -78,7 +78,8 @@ export class LambdaModel {
     this.environment.set(key, value);
   }
 
-  public pushCommand(command: Command) {
+  public pushCommandHistory() {
+    const command = this.compileNewCommand();
     this.historyCommandIndex = this.historyCommandList.length - 1;
     this.historyCommandList.push(command);
   }
@@ -99,6 +100,11 @@ export class LambdaModel {
     this.viewModel.setOutput(output);
   }
 
+  // Deleting Methods
+  public deleteEnvironmentEntry(key: string): void {
+    this.environment.delete(key);
+  }
+
   // Iteration methods
   public forEachEnvironmentEntry(action: (key: string, value: string) => void) {
     MapHelper.forEach(this.environment, action);
@@ -117,6 +123,17 @@ export class LambdaModel {
 
   public clearEnvironment(): void {
     this.environment.clear();
+  }
+
+  // Helper Methods
+  private compileNewCommand(): Command {
+    return Command.newInstance(
+      this.getInput(),
+      this.getBody(),
+      StringEntryList.newEmptyInstance(),
+      StringEntryList.newEmptyInstance(),
+      this.environment
+    );
   }
 }
 

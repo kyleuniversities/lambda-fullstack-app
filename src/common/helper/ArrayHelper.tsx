@@ -23,4 +23,11 @@ export class ArrayHelper {
   public static forEach<T>(array: Array<T>, action: (item: T) => void): void {
     array.forEach((item: T) => action(item));
   }
+
+  /**
+   * Gets a nonnull value of an array or raises an error
+   */
+  public static getValue<T>(array: Array<T>, index: number): T {
+    return array[index];
+  }
 }

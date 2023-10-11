@@ -1,5 +1,7 @@
+import { MapHelper } from '../../common/helper/MapHelper';
 import { InputHelper } from '../helper/InputHelper';
 import { LambdaModel } from '../model/LambdaModel';
+import { COMMAND_MAP } from './commands';
 
 export class LambdaInputKeyHandler {
   // Instance Fields
@@ -36,12 +38,24 @@ export class LambdaInputKeyHandler {
   private handleEnterEvent(event: any): void {
     alert('ENTER has been entered');
     const inputText = this.model.getInput();
-    const parts = InputHelper.splitInputText(
+    const inputParts = InputHelper.splitInputText(
       this.model.getEnvironment(),
       inputText
     );
-    const outputText = '<<size: ' + parts.length + '>>\n' + parts.join('\n');
-    this.model.setOutput(outputText);
+    const commandText = inputParts[0];
+    const parameters = inputParts.slice(1);
+    this.model.pushCommandHistory();
+    this.performCommand(commandText, parameters);
     event.preventDefault();
+  }
+
+  private performCommand(commandText: string, parameters: string[]): void {
+    try {
+      MapHelper.getValue(COMMAND_MAP, commandText)(parameters, this.model);
+    } catch (error) {
+      if (error instanceof Error) {
+        this.model.setOutput(`${error.constructor.name}: ${error.message}`);
+      }
+    }
   }
 }

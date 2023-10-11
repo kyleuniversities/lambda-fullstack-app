@@ -90,6 +90,47 @@ export class StringEntryList extends Array<StringEntry> {
 }
 
 /**
+ * Utility list for Strings
+ */
+export class StringList extends Array<string> {
+  // New Instance Methods
+  public static newInstance(array: string[]): StringList {
+    const list = StringList.newEmptyInstance();
+    ArrayHelper.forEach(array, (item: string) => list.push(item));
+    return new StringList();
+  }
+
+  public static newEmptyInstance(): StringList {
+    return new StringList();
+  }
+
+  // Constructor Method
+  protected constructor() {
+    super();
+  }
+
+  // Accessor Methods
+  public getBoolean(index: number): boolean {
+    return BooleanHelper.parseBoolean(this[index]);
+  }
+
+  public getInteger(index: number): number {
+    return parseInt(this[index]);
+  }
+
+  public getFloat(index: number): number {
+    return parseFloat(this[index]);
+  }
+
+  // Operant Methods
+  public copy(): StringList {
+    const copy = StringHelper.newEmptyStringList();
+    ArrayHelper.forEach(this, (item: string) => copy.push(item));
+    return copy;
+  }
+}
+
+/**
  * Utility map for String to String entries
  */
 export class StringMap extends Map<string, string> {
@@ -109,7 +150,7 @@ export class StringMap extends Map<string, string> {
 
   // Accessor Methods
   public getValue(key: string): string {
-    return this.get(key) as string;
+    return MapHelper.getValue(this, key);
   }
 
   public getBoolean(key: string): boolean {

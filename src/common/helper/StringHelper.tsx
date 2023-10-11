@@ -1,8 +1,15 @@
-import { StringMap } from '../util/string';
+import { StringList, StringMap } from '../util/string';
 import { ArrayHelper } from './ArrayHelper';
 
 export class StringHelper {
   private constructor() {}
+
+  /**
+   * Creates a new empty String List
+   */
+  public static newEmptyStringList(): StringList {
+    return StringList.newEmptyInstance();
+  }
 
   /**
    * Creates a new String Map
