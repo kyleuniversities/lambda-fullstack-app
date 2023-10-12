@@ -177,4 +177,13 @@ export class StringMap extends Map<string, string> {
   public toStringEntryList(): StringEntryList {
     return StringEntryList.newInstanceFromStringMap(this);
   }
+
+  public toJson(): any {
+    const json: any = {};
+    MapHelper.forEach(
+      this,
+      (key: string, value: string) => (json[key] = value)
+    );
+    return json;
+  }
 }

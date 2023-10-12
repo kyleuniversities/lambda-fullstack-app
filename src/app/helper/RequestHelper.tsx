@@ -21,7 +21,7 @@ export class RequestHelper {
     const body = {
       args,
       bodyText,
-      environment,
+      environment: environment.toJson(),
     };
     const options = {
       mode: 'cors' as RequestMode,
