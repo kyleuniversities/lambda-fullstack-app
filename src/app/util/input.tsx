@@ -1,6 +1,6 @@
 import { ArrayHelper } from '../../common/helper/ArrayHelper';
 import { StringHelper } from '../../common/helper/StringHelper';
-import { ifElseReturn, ifThen } from '../../common/util/conditional';
+import { ifThen } from '../../common/util/conditional';
 import { StringMap } from '../../common/util/string';
 
 const QUOTE_ESCAPE_CHARACTER_MAP = StringHelper.newStringMapFromDoubleArray([

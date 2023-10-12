@@ -16,6 +16,7 @@ This is project for creating a multipurpose functional API server.
 
 # misc
 .DS_Store
+.env
 .env.local
 .env.development.local
 .env.test.local
