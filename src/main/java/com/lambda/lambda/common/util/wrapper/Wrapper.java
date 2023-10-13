@@ -1,6 +1,6 @@
 package com.lambda.lambda.common.util.wrapper;
 
-import com.lambda.lambda.common.helper.StringHelper;
+import com.lambda.lambda.common.helper.string.StringHelper;
 
 /**
  * Utility class for

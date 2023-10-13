@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.lambda.lambda.app.helper.CodeHelper;
 import com.lambda.lambda.app.util.LambdaArguments;
 import com.lambda.lambda.common.helper.IterationHelper;
-import com.lambda.lambda.common.helper.StringHelper;
+import com.lambda.lambda.common.helper.string.StringHelper;
 import com.lambda.lambda.common.util.wrapper.IntegerWrapper;
 
 @CrossOrigin
@@ -38,11 +39,12 @@ public final class IntegerController {
                 IntegerWrapper::decrement);
     }
 
-    private String synthesizeArguments(LambdaArguments lambdaArguments, int baseValue, int startIndex,
-            BiConsumer<IntegerWrapper, Integer> iterationAction) {
+    private String synthesizeArguments(LambdaArguments lambdaArguments, int baseValue,
+            int startIndex, BiConsumer<IntegerWrapper, Integer> iterationAction) {
         IntegerWrapper synthesized = IntegerWrapper.newInstance(baseValue);
         IterationHelper.forEach(startIndex, lambdaArguments.getArgumentsSize(),
-                (Integer i) -> iterationAction.accept(synthesized, lambdaArguments.getIntegerArgument(i)));
-        return StringHelper.toString(synthesized);
+                (Integer i) -> iterationAction.accept(synthesized,
+                        lambdaArguments.getIntegerArgument(i)));
+        return CodeHelper.toCode(StringHelper.toString(synthesized));
     }
 }

@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import com.lambda.lambda.app.helper.CodeHelper;
 import com.lambda.lambda.common.helper.ListHelper;
 import com.lambda.lambda.common.helper.MapHelper;
-import com.lambda.lambda.common.helper.StringHelper;
+import com.lambda.lambda.common.helper.string.StringHelper;
 
 public final class LambdaArguments {
     // Instance Fields
@@ -24,9 +25,9 @@ public final class LambdaArguments {
     private LambdaArguments(List<String> arguments, String bodyText,
             Map<String, String> environment) {
         super();
-        this.arguments = arguments;
-        this.bodyText = bodyText;
-        this.environment = environment;
+        this.arguments = CodeHelper.toText(arguments);
+        this.bodyText = CodeHelper.toText(bodyText);
+        this.environment = CodeHelper.toText(environment);
     }
 
     // Accessor Methods

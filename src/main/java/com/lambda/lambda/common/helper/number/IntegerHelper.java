@@ -1,4 +1,6 @@
-package com.lambda.lambda.common.helper;
+package com.lambda.lambda.common.helper.number;
+
+import com.lambda.lambda.common.helper.ConditionalHelper;
 
 /**
  * Helper class for String Operations

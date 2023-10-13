@@ -3,6 +3,7 @@ package com.lambda.lambda.common.helper;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import com.lambda.lambda.common.helper.number.IntegerHelper;
 
 /**
  * Helper class for Iterative Operations
@@ -48,8 +49,8 @@ public final class IterationHelper {
      * Loops through a range of given values and stops if a break point is reached
      */
     public static boolean forEach(int start, int upTo, int increment, Predicate<Integer> action) {
-        BiPredicate<Integer, Integer> actionCondition = ConditionalHelper.ifReturnElse(increment > 0,
-                IntegerHelper::lessThan, IntegerHelper::greaterThan);
+        BiPredicate<Integer, Integer> actionCondition = ConditionalHelper
+                .ifReturnElse(increment > 0, IntegerHelper::lessThan, IntegerHelper::greaterThan);
         return IterationHelper.forEach(start, upTo, increment, actionCondition, action);
     }
 

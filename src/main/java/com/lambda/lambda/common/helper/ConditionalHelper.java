@@ -12,6 +12,15 @@ public final class ConditionalHelper {
     }
 
     /**
+     * Performs an action if a condition is met
+     */
+    public static <T> void ifThen(boolean condition, Runnable action) {
+        if (condition) {
+            action.run();
+        }
+    }
+
+    /**
      * Private Constructor to prevent instantiation
      */
     private ConditionalHelper() {
