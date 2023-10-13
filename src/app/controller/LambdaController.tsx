@@ -1,3 +1,4 @@
+import { PromiseHelper } from '../../common/helper/js/PromiseHelper';
 import { LambdaModel } from '../model/LambdaModel';
 import { LambdaView } from '../view/LambdaView';
 import { LambdaInputKeyHandler } from './LambdaInputKeyHandler';
@@ -26,16 +27,19 @@ export class LambdaController {
   }
 
   // Controller Methods
-  private onInputKeyDown(event: any): void {
-    this.inputKeyHandler.handleKeyEvent(event);
+  private async onInputKeyDown(event: any): Promise<void> {
+    await this.inputKeyHandler.handleKeyEvent(event);
+    return PromiseHelper.newConservativeVoidPromise();
   }
 
-  private onInputChange(event: any): void {
+  private onInputChange(event: any): Promise<void> {
     this.model.setInput(event.target.value);
+    return PromiseHelper.newConservativeVoidPromise();
   }
 
-  private onBodyChange(event: any): void {
+  private onBodyChange(event: any): Promise<void> {
     this.model.setBody(event.target.value);
+    return PromiseHelper.newConservativeVoidPromise();
   }
 
   // Initialization Methods

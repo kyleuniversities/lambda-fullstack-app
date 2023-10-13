@@ -8,9 +8,9 @@ const doNothing = (event: any) => {};
 
 export type LambdaViewProps = {
   model: LambdaModel;
-  onInputKeyDown: (event: any) => void;
-  onInputChange: (event: any) => void;
-  onBodyChange: (event: any) => void;
+  onInputKeyDown: (event: any) => Promise<void>;
+  onInputChange: (event: any) => Promise<void>;
+  onBodyChange: (event: any) => Promise<void>;
 };
 
 export const LambdaView = (props: LambdaViewProps): JSX.Element => {
@@ -19,15 +19,16 @@ export const LambdaView = (props: LambdaViewProps): JSX.Element => {
   const [input, setInput] = useState(model.getInput());
   const [body, setBody] = useState(model.getBody());
   const [output, setOutput] = useState(model.getOutput());
-  const updateOnChange = (action: (event: any) => void) => {
-    return (event: any) => {
-      action(event);
+  const updateOnChange = (action: (event: any) => Promise<void>) => {
+    return async (event: any) => {
+      await action(event);
       setMessage(model.getMessage());
       setInput(model.getInput());
       setBody(model.getBody());
       setOutput(model.getOutput());
     };
   };
+
   return (
     <div id="lambda-view">
       <h1>Lambda Application</h1>
@@ -37,21 +38,13 @@ export const LambdaView = (props: LambdaViewProps): JSX.Element => {
             <LambdaMessageArea value={message} />
             <LambdaInputField
               value={input}
-              onKeyDown={props.onInputKeyDown}
+              onKeyDown={updateOnChange(props.onInputKeyDown)}
               onChange={updateOnChange(props.onInputChange)}
             />
             <LambdaBodyArea
               value={body}
               onChange={updateOnChange(props.onBodyChange)}
             />
-            <Grid columns={2} relaxed="very" style={{ height: '50px' }}>
-              <Grid.Column>
-                <LambdaAttachImageButton />
-              </Grid.Column>
-              <Grid.Column>
-                <LambdaAttachFileButton />
-              </Grid.Column>
-            </Grid>
           </Form>
         </Grid.Column>
         <Grid.Column>
@@ -100,36 +93,12 @@ const LambdaBodyArea = (props: {
   return (
     <LabeledTextArea
       title="Body"
-      containerHeight="270px"
-      textAreaHeight="200px"
+      containerHeight="320px"
+      textAreaHeight="270px"
       disabled={false}
       value={props.value}
       onChange={props.onChange}
     />
-  );
-};
-
-const LambdaAttachImageButton = (): JSX.Element => {
-  return (
-    <Button
-      color="twitter"
-      fluid
-      onClick={(e: any) => alert('Attach Image Button has been clicked')}
-    >
-      Attach Image
-    </Button>
-  );
-};
-
-const LambdaAttachFileButton = (): JSX.Element => {
-  return (
-    <Button
-      color="twitter"
-      fluid
-      onClick={(e: any) => alert('Attach File Button has been clicked')}
-    >
-      Attach File
-    </Button>
   );
 };
 
