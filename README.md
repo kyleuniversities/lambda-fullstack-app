@@ -1,4 +1,4 @@
-# lambda
+# Lambda Frontend App
 
 This is the frontend portion of a project for creating a multipurpose functional API server.
 
