@@ -1,7 +1,8 @@
 import { ArrayHelper } from '../helper/ArrayHelper';
 import { BooleanHelper } from '../helper/BooleanHelper';
 import { MapHelper } from '../helper/MapHelper';
-import { StringHelper } from '../helper/StringHelper';
+import { StringHelper } from '../helper/string/StringHelper';
+import { ifThen } from './conditional';
 
 /**
  * Structure for String to String entries
@@ -185,5 +186,95 @@ export class StringMap extends Map<string, string> {
       (key: string, value: string) => (json[key] = value)
     );
     return json;
+  }
+
+  public flip(): StringMap {
+    const flipped = StringHelper.newStringMap();
+    MapHelper.forEach(this, (key: string, value: string) =>
+      flipped.set(value, key)
+    );
+    return flipped;
+  }
+
+  public mapValues(mapping: (string: string) => string): StringMap {
+    const mapped = StringHelper.newStringMap();
+    MapHelper.forEach(this, (key: string, value: string) =>
+      mapped.set(key, mapping(value))
+    );
+    return mapped;
+  }
+}
+
+/**
+ * Utility class for replacing text
+ */
+export class TextReplacer {
+  // Instance Fields
+  private replaced: string[];
+  private text: string;
+  private replacementEntryList: StringEntryList;
+  private i;
+
+  // New Instance Method
+  public static newInstance(): TextReplacer {
+    return new TextReplacer();
+  }
+
+  // Constructor Method
+  protected constructor() {
+    this.replaced = [];
+    this.text = '';
+    this.replacementEntryList = StringEntryList.newEmptyInstance();
+    this.i = 0;
+  }
+
+  // Main Instance Method
+  public replaceWithReplacementMap(
+    text: string,
+    replacementMap: StringMap
+  ): string {
+    this.reset(text, replacementMap);
+    this.forEachIterationCharacter((ch: string) => {
+      const noReplacementFound = this.forEachReplacementEntry(
+        (target: string, replacement: string) => {
+          if (StringHelper.substringEquals(text, target, this.i)) {
+            this.replaced.push(replacement);
+            this.i += target.length - 1;
+            return false;
+          }
+          return true;
+        }
+      );
+      ifThen(noReplacementFound, () => this.replaced.push(ch));
+    });
+    return this.replaced.join('');
+  }
+
+  // Iteration Methods
+  private forEachIterationCharacter(action: (ch: string) => void): void {
+    while (this.i < this.text.length) {
+      action(this.text.charAt(this.i));
+      this.i++;
+    }
+  }
+
+  private forEachReplacementEntry(
+    action: (target: string, replacement: string) => boolean
+  ): boolean {
+    for (let i = 0; i < this.replacementEntryList.length; i++) {
+      const entry = this.replacementEntryList[i];
+      if (!action(entry.getKey(), entry.getValue())) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  // Functional Initialization Methods
+  private reset(text: string, replacementMap: StringMap): void {
+    this.replaced = [];
+    this.text = text;
+    this.replacementEntryList = replacementMap.toStringEntryList();
+    this.i = 0;
   }
 }

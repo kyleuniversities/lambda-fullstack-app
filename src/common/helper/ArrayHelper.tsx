@@ -30,4 +30,11 @@ export class ArrayHelper {
   public static getValue<T>(array: Array<T>, index: number): T {
     return array[index];
   }
+
+  /**
+   * Maps a list
+   */
+  public static map<T, U>(array: Array<T>, mapping: (item: T) => U): U[] {
+    return array.map((item: T) => mapping(item));
+  }
 }

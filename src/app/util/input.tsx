@@ -1,5 +1,5 @@
 import { ArrayHelper } from '../../common/helper/ArrayHelper';
-import { StringHelper } from '../../common/helper/StringHelper';
+import { StringHelper } from '../../common/helper/string/StringHelper';
 import { ifThen } from '../../common/util/conditional';
 import { StringMap } from '../../common/util/string';
 

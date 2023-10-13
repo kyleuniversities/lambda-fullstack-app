@@ -1,5 +1,5 @@
-import { StringList, StringMap } from '../util/string';
-import { ArrayHelper } from './ArrayHelper';
+import { StringList, StringMap } from '../../util/string';
+import { ArrayHelper } from './../ArrayHelper';
 
 export class StringHelper {
   private constructor() {}
@@ -29,5 +29,19 @@ export class StringHelper {
       map.set(keyValuePair[0], keyValuePair[1]);
     });
     return map;
+  }
+
+  /**
+   * Checks if a substring is equal to a target string
+   */
+  public static substringEquals(
+    text: string,
+    target: string,
+    index: number
+  ): boolean {
+    if (index + target.length > text.length) {
+      return false;
+    }
+    return text.substring(index, index + target.length) === target;
   }
 }

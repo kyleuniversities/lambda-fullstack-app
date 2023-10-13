@@ -1,9 +1,10 @@
 import { MapHelper } from '../../common/helper/MapHelper';
-import { StringHelper } from '../../common/helper/StringHelper';
+import { StringHelper } from '../../common/helper/string/StringHelper';
 import { PromiseHelper } from '../../common/helper/js/PromiseHelper';
 import { InvalidInputError } from '../../common/util/error';
 import { RequestHelper } from '../helper/RequestHelper';
 import { LambdaModel } from '../model/LambdaModel';
+import { StringCodeHelper } from '../../common/helper/string/StringCodeHelper';
 
 // Command Function Type
 type CommandFunction = (
@@ -29,14 +30,16 @@ const runLambdaFunction = async (
   const args = parameters.slice(1);
   const bodyText = model.getBody();
   const environment = model.getEnvironment();
-  const output = await RequestHelper.request(
+  const rawOutput = await RequestHelper.request(
     method,
     url,
     args,
     bodyText,
     environment
   );
-  model.setOutput(JSON.stringify(output));
+  const codeOutput = JSON.stringify(rawOutput);
+  const output = StringCodeHelper.toText(codeOutput);
+  model.setOutput(output);
   return PromiseHelper.newConservativeVoidPromise();
 };
 

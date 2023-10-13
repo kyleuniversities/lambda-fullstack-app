@@ -1,5 +1,5 @@
 import { MapHelper } from '../../common/helper/MapHelper';
-import { StringHelper } from '../../common/helper/StringHelper';
+import { StringHelper } from '../../common/helper/string/StringHelper';
 import { StringEntryList, StringMap } from '../../common/util/string';
 import { LambdaViewModel } from './LambdaViewModel';
 
