@@ -35,7 +35,7 @@
 		</dependency>
 	</dependencies>
 
-	<build>mon
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
