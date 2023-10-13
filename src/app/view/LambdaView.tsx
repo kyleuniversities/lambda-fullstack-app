@@ -1,10 +1,8 @@
-import { Button, Form, Grid } from 'semantic-ui-react';
-import { LabeledTextArea } from './LabeledTextArea';
-import { LabeledTextField } from './LabeledTextField';
+import { Grid } from 'semantic-ui-react';
 import { LambdaModel } from '../model/LambdaModel';
-import { useState } from 'react';
-
-const doNothing = (event: any) => {};
+import { ReactNode, useState } from 'react';
+import { LambdaViewUserColumn } from './LambdaViewUserColumn';
+import { LambdaViewOutputColumn } from './LambdaViewOutputColumn';
 
 export type LambdaViewProps = {
   model: LambdaModel;
@@ -19,7 +17,9 @@ export const LambdaView = (props: LambdaViewProps): JSX.Element => {
   const [input, setInput] = useState(model.getInput());
   const [body, setBody] = useState(model.getBody());
   const [output, setOutput] = useState(model.getOutput());
-  const updateOnChange = (action: (event: any) => Promise<void>) => {
+  const updateOnChange = (
+    action: (event: any) => Promise<void>
+  ): ((event: any) => Promise<void>) => {
     return async (event: any) => {
       await action(event);
       setMessage(model.getMessage());
@@ -28,89 +28,37 @@ export const LambdaView = (props: LambdaViewProps): JSX.Element => {
       setOutput(model.getOutput());
     };
   };
+  return (
+    <LambdaViewContainer>
+      <LambdaViewGrid>
+        <LambdaViewUserColumn
+          message={message}
+          input={input}
+          body={body}
+          onInputKeyDown={props.onInputKeyDown}
+          onInputChange={props.onInputChange}
+          onBodyChange={props.onBodyChange}
+          updateOnChange={updateOnChange}
+        />
+        <LambdaViewOutputColumn output={output} />
+      </LambdaViewGrid>
+    </LambdaViewContainer>
+  );
+};
 
+const LambdaViewContainer = (props: { children: ReactNode }): JSX.Element => {
   return (
     <div id="lambda-view">
       <h1>Lambda Application</h1>
-      <Grid columns={2} relaxed="very" style={{ height: '100%' }}>
-        <Grid.Column style={{ height: '100%' }}>
-          <Form>
-            <LambdaMessageArea value={message} />
-            <LambdaInputField
-              value={input}
-              onKeyDown={updateOnChange(props.onInputKeyDown)}
-              onChange={updateOnChange(props.onInputChange)}
-            />
-            <LambdaBodyArea
-              value={body}
-              onChange={updateOnChange(props.onBodyChange)}
-            />
-          </Form>
-        </Grid.Column>
-        <Grid.Column>
-          <Form>
-            <LambdaOutputArea value={output} />
-          </Form>
-        </Grid.Column>
-      </Grid>
+      {props.children}
     </div>
   );
 };
 
-const LambdaMessageArea = (props: { value: string }): JSX.Element => {
+const LambdaViewGrid = (props: { children: ReactNode }): JSX.Element => {
   return (
-    <LabeledTextArea
-      title="Message"
-      containerHeight="200px"
-      textAreaHeight="150px"
-      disabled={true}
-      value={props.value}
-      onChange={doNothing}
-    />
-  );
-};
-
-const LambdaInputField = (props: {
-  value: string;
-  onKeyDown: (event: any) => void;
-  onChange: (event: any) => void;
-}): JSX.Element => {
-  return (
-    <LabeledTextField
-      title="Input"
-      containerHeight="100px"
-      value={props.value}
-      onKeyDown={props.onKeyDown}
-      onChange={props.onChange}
-    />
-  );
-};
-
-const LambdaBodyArea = (props: {
-  value: string;
-  onChange: (event: any) => void;
-}): JSX.Element => {
-  return (
-    <LabeledTextArea
-      title="Body"
-      containerHeight="320px"
-      textAreaHeight="270px"
-      disabled={false}
-      value={props.value}
-      onChange={props.onChange}
-    />
-  );
-};
-
-const LambdaOutputArea = (props: { value: string }): JSX.Element => {
-  return (
-    <LabeledTextArea
-      title="Output"
-      containerHeight="570px"
-      textAreaHeight="100%"
-      disabled={true}
-      value={props.value}
-      onChange={doNothing}
-    />
+    <Grid columns={2} relaxed="very" style={{ height: '100%' }}>
+      {props.children}
+    </Grid>
   );
 };
