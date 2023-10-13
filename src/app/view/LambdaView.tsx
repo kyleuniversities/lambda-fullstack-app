@@ -45,14 +45,6 @@ export const LambdaView = (props: LambdaViewProps): JSX.Element => {
               value={body}
               onChange={updateOnChange(props.onBodyChange)}
             />
-            <Grid columns={2} relaxed="very" style={{ height: '50px' }}>
-              <Grid.Column>
-                <LambdaAttachImageButton />
-              </Grid.Column>
-              <Grid.Column>
-                <LambdaAttachFileButton />
-              </Grid.Column>
-            </Grid>
           </Form>
         </Grid.Column>
         <Grid.Column>
@@ -101,36 +93,12 @@ const LambdaBodyArea = (props: {
   return (
     <LabeledTextArea
       title="Body"
-      containerHeight="270px"
-      textAreaHeight="200px"
+      containerHeight="320px"
+      textAreaHeight="270px"
       disabled={false}
       value={props.value}
       onChange={props.onChange}
     />
-  );
-};
-
-const LambdaAttachImageButton = (): JSX.Element => {
-  return (
-    <Button
-      color="twitter"
-      fluid
-      onClick={(e: any) => alert('Attach Image Button has been clicked')}
-    >
-      Attach Image
-    </Button>
-  );
-};
-
-const LambdaAttachFileButton = (): JSX.Element => {
-  return (
-    <Button
-      color="twitter"
-      fluid
-      onClick={(e: any) => alert('Attach File Button has been clicked')}
-    >
-      Attach File
-    </Button>
   );
 };
 
