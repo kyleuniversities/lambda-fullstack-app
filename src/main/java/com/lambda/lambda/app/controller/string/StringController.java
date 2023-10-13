@@ -1,4 +1,4 @@
-package com.lambda.lambda.app.string;
+package com.lambda.lambda.app.controller.string;
 
 import java.util.List;
 import org.springframework.web.bind.annotation.CrossOrigin;

@@ -1,4 +1,4 @@
-package com.lambda.lambda.app.math;
+package com.lambda.lambda.app.controller.number;
 
 import java.util.function.BiConsumer;
 
