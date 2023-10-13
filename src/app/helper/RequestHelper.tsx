@@ -39,10 +39,12 @@ export class RequestHelper {
       headers,
       body: JSON.stringify(body),
     };
+    /*
     alert('REQUEST: ' + fullUrl);
     alert('EXAMPLE: ' + JSON.stringify({ message: 'Hi' }));
     alert('BODY: ' + JSON.stringify(body));
     alert('OPTIONS: ' + JSON.stringify(options));
+    /**/
     return fetch(fullUrl, options)
       .then((data) => data.json())
       .catch((error) => {

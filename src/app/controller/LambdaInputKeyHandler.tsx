@@ -33,13 +33,13 @@ export class LambdaInputKeyHandler {
 
   // Key Handler Methods
   private async handleTabEvent(event: any): Promise<void> {
-    alert('TAB has been entered');
+    //alert('TAB has been entered');
     event.preventDefault();
     return PromiseHelper.newConservativeVoidPromise();
   }
 
   private async handleEnterEvent(event: any): Promise<void> {
-    alert('ENTER has been entered');
+    //alert('ENTER has been entered');
     const inputText = this.model.getInput();
     const inputParts = InputHelper.splitInputText(
       this.model.getEnvironment(),
