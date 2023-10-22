@@ -1,6 +1,5 @@
 package com.lambda.lambda.common.helper.string;
 
-import org.apache.catalina.valves.rewrite.RewriteCond.Condition;
 import com.lambda.lambda.common.helper.ConditionalHelper;
 
 /**
