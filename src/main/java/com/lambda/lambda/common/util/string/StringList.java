@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lambda.lambda.common.helper.ListHelper;
+import com.lambda.lambda.common.helper.string.StringHelper;
 
 /**
  * Utility list for Strings
@@ -24,7 +25,7 @@ public final class StringList extends ArrayList<String> {
         return StringList.newInstance(ListHelper.toList(array));
     }
 
-    // Constructor
+    // Constructor Method
     private StringList() {
         super();
     }
@@ -40,5 +41,18 @@ public final class StringList extends ArrayList<String> {
 
     public boolean getBoolean(int index) {
         return Boolean.parseBoolean(this.get(index));
+    }
+
+    // Operant Methods
+    public StringList copy() {
+        StringList copy = StringHelper.newStringList();
+        ListHelper.forEach(this, (String text) -> copy.add(text));
+        return copy;
+    }
+
+    // To String Method
+    @Override
+    public String toString() {
+        return StringHelper.join(this, "\n");
     }
 }

@@ -56,6 +56,13 @@ public final class MapHelper {
     }
 
     /**
+     * Puts a key-value pair into a map
+     */
+    public static <K, V> void put(Map<K, V> map, K key, V value) {
+        map.put(key, value);
+    }
+
+    /**
      * Converts a Map to an Entry List
      */
     public static <K, V> List<Entry<K, V>> toEntryList(Map<K, V> map) {
