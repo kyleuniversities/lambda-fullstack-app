@@ -25,7 +25,7 @@ public class JavaStructureTester {
                 "/**\r\n" + //
                 " * Utility class for creating java structure classes from short class input\r\n" + //
                 " */\r\n" + //
-                "public class JavaStructureClassMaker {\r\n" + //
+                "class JavaStructureClassMaker {\r\n" + //
                 "    // Instance Fields\r\n" + //
                 "    private StringList inputLines;\r\n" + //
                 "    private boolean isMakingSetters;\r\n" + //
