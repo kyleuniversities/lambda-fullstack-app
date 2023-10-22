@@ -17,7 +17,7 @@ public final class IntegerWrapper extends Wrapper<Integer> {
         super(value);
     }
 
-    // Operant Return Method
+    // Operant Return Methods
     public int getAbsoluteValue() {
         return IntegerHelper.absoluteValue(this.getValue());
     }

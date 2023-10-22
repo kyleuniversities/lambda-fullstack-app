@@ -8,6 +8,7 @@ import com.lambda.lambda.app.helper.CodeHelper;
 import com.lambda.lambda.common.helper.ListHelper;
 import com.lambda.lambda.common.helper.MapHelper;
 import com.lambda.lambda.common.helper.string.StringHelper;
+import com.lambda.lambda.common.util.string.StringList;
 
 public final class LambdaArguments {
     // Instance Fields
@@ -51,8 +52,16 @@ public final class LambdaArguments {
         return Boolean.parseBoolean(this.getArgument(index));
     }
 
+    public boolean argumentsContain(String text) {
+        return this.arguments.contains(text);
+    }
+
     public String getBodyText() {
         return this.bodyText;
+    }
+
+    public StringList getBodyLines() {
+        return StringHelper.split(this.bodyText, "[\n]");
     }
 
     public int getEnvironmentSize() {
@@ -86,6 +95,10 @@ public final class LambdaArguments {
 
     public void forEachArgument(BiConsumer<Integer, String> action) {
         ListHelper.forEach(this.arguments, action);
+    }
+
+    public void forEachBodyLine(Consumer<String> action) {
+        ListHelper.forEach(this.getBodyLines(), action);
     }
 
     public void forEachEnvironmentEntry(BiConsumer<String, String> action) {
