@@ -324,7 +324,8 @@ public final class JavaStructureClassMaker {
         line.append(" newInstance(");
         ListHelper.forEach(this.instanceFields, (InstanceField field) -> line
                 .append(field.getDataType() + " " + field.getName() + ", "));
-        StringDeleterHelper.deleteLastCharacters(line, 2);
+        ConditionalHelper.ifThen(!this.instanceFields.isEmpty(),
+                () -> StringDeleterHelper.deleteLastCharacters(line, 2));
         line.append(") {");
         return line.toString();
     }
@@ -338,7 +339,8 @@ public final class JavaStructureClassMaker {
         line.append("(");
         ListHelper.forEach(this.instanceFields,
                 (InstanceField field) -> line.append(field.getName() + ", "));
-        StringDeleterHelper.deleteLastCharacters(line, 2);
+        ConditionalHelper.ifThen(!this.instanceFields.isEmpty(),
+                () -> StringDeleterHelper.deleteLastCharacters(line, 2));
         line.append(");");
         return line.toString();
     }
@@ -352,7 +354,8 @@ public final class JavaStructureClassMaker {
         line.append("(");
         ListHelper.forEach(this.instanceFields, (InstanceField field) -> line
                 .append(field.getDataType() + " " + field.getName() + ", "));
-        StringDeleterHelper.deleteLastCharacters(line, 2);
+        ConditionalHelper.ifThen(!this.instanceFields.isEmpty(),
+                () -> StringDeleterHelper.deleteLastCharacters(line, 2));
         line.append(") {");
         return line.toString();
     }
