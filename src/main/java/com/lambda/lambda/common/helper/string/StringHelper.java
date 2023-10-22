@@ -77,6 +77,13 @@ public final class StringHelper {
     }
 
     /**
+     * Returns the first found index of a character
+     */
+    public static int indexOf(String text, char target) {
+        return StringHelper.indexOf(text, (Character ch) -> ch == target);
+    }
+
+    /**
      * Returns the first found index of a query
      */
     public static int indexOf(String text, Predicate<Character> query) {
@@ -86,6 +93,13 @@ public final class StringHelper {
             }
         }
         return -1;
+    }
+
+    /**
+     * Returns the last found index of a character
+     */
+    public static int lastIndexOf(String text, char target) {
+        return StringHelper.lastIndexOf(text, (Character ch) -> ch == target);
     }
 
     /**

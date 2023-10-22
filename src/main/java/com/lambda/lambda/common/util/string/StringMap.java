@@ -3,6 +3,7 @@ package com.lambda.lambda.common.util.string;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import com.lambda.lambda.common.helper.MapHelper;
+import com.lambda.lambda.common.helper.string.StringHelper;
 
 /**
  * Utility map for Strings
@@ -41,5 +42,18 @@ public final class StringMap extends LinkedHashMap<String, String> {
 
     public boolean getBoolean(String key) {
         return Boolean.parseBoolean(this.get(key));
+    }
+
+    // Operant Methods
+    public StringList toStringList() {
+        StringList list = StringHelper.newStringList();
+        MapHelper.forEach(this, (String key, String value) -> list.add(key + ": " + value));
+        return list;
+    }
+
+    // To String Method
+    @Override
+    public String toString() {
+        return this.toStringList().toString();
     }
 }

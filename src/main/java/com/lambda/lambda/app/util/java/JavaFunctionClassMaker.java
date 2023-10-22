@@ -129,7 +129,7 @@ public final class JavaFunctionClassMaker extends JavaClassMaker {
         boolean isAbstract = this.isAbstract();
         line.append("\t");
         line.append(ConditionalHelper.ifReturnElse(isAbstract, "protected ", "private "));
-        line.append("reset(");
+        line.append("void reset(");
         this.forEachInstanceField((InstanceField field) -> line
                 .append(field.getDataType() + " " + field.getName() + ", "));
         this.removeLastTrailingCharacters(line, 2);

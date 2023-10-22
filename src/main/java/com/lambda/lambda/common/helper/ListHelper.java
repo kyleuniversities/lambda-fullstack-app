@@ -78,6 +78,20 @@ public final class ListHelper {
     }
 
     /**
+     * Checks if a condition is true for all items in a list
+     */
+    public static <T> boolean isTrueForAll(List<T> list, Predicate<T> condition) {
+        return ListHelper.forEach(list, condition);
+    }
+
+    /**
+     * Checks if a condition is true for any item in a list
+     */
+    public static <T> boolean isTrueForAny(List<T> list, Predicate<T> condition) {
+        return !ListHelper.forEach(list, (T item) -> !condition.test(item));
+    }
+
+    /**
      * Maps the values of a List
      */
     public static <T, U> List<U> map(List<T> list, Function<T, U> mapping) {
