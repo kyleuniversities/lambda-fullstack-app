@@ -100,7 +100,7 @@ public final class JavaStructureClassMaker extends JavaClassMaker {
     private String makeNewInstanceReturnLine() {
         StringBuilder line = StringHelper.newBuilder();
         boolean isGeneric = this.isGeneric();
-        line.append("\t\t return new ");
+        line.append("\t\treturn new ");
         line.append(this.getName());
         ConditionalHelper.ifThen(isGeneric, () -> line.append("<>"));
         line.append("(");

@@ -1,11 +1,12 @@
 package com.lambda.lambda.test;
 
 import com.lambda.lambda.app.util.java.JavaStructureClassMaker;
+import com.lambda.lambda.app.util.java.JavaFunctionClassMaker;
 
 public class JavaStructureTester {
     public static void main(String[] args) {
         System.out.println("En Joji!");
-        System.out.println(JavaStructureClassMaker.newInstance().make(x(), true));
+        System.out.println(JavaFunctionClassMaker.newInstance().make(x()));
     }
 
     private static String x() {
