@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.function.Supplier;
 import com.lambda.lambda.common.helper.ConditionalHelper;
 import com.lambda.lambda.common.helper.ListHelper;
-import com.lambda.lambda.common.helper.string.StringCodeHelper;
 import com.lambda.lambda.common.helper.string.StringDeleterHelper;
 import com.lambda.lambda.common.helper.string.StringHelper;
 import com.lambda.lambda.common.helper.string.StringTrimmerHelper;
@@ -82,7 +81,6 @@ public final class JavaStructureClassMaker {
     }
 
     private void collectBlockCommentLines() {
-        System.out.println("BC_START: " + this.inputLineIndex);
         this.collectMultiLineList(this::isBlockCommentStartLine, this::isBlockCommentEndLine,
                 this.blockCommentLines);
     }
@@ -277,10 +275,6 @@ public final class JavaStructureClassMaker {
             boolean isMatchingEnd = isMatchingEndSupplier.get();
             boolean isEmptyLine = this.isEmptyLine();
             ConditionalHelper.ifThen(isMatchingStart, () -> isMatching.setValueToTrue());
-            System.out.println("MULTI_" + this.inputLineIndex);
-            System.out.println(" line: " + StringCodeHelper.toCode(this.getLine()));
-            System.out.println(" isMatchingStart: " + isMatchingStart);
-            System.out.println(" isMatchingEnd: " + isMatchingEnd);
             ConditionalHelper.ifThen(isMatching.isTrue(), () -> lineList.add(this.getLine()));
             ConditionalHelper.ifThen(isMatchingEnd, () -> isMatching.setValueToFalse());
             ConditionalHelper.ifThen(isMatchingEnd, () -> this.incrementLineIndex());
