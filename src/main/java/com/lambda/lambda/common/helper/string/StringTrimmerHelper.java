@@ -44,7 +44,7 @@ public final class StringTrimmerHelper {
      * Helper method for depicting a non white space character
      */
     private static boolean isNonWhiteSpaceCharacter(Character ch) {
-        return ch != ' ' && ch != '\t';
+        return ch != ' ' && ch != '\t' && ch != '\n';
     }
 
     /**
