@@ -17,6 +17,7 @@ import com.lambda.lambda.common.helper.ConditionalHelper;
 import com.lambda.lambda.common.helper.ExceptionHelper;
 import com.lambda.lambda.common.helper.FunctionHelper;
 import com.lambda.lambda.common.helper.ListHelper;
+import com.lambda.lambda.common.helper.TimeHelper;
 import com.lambda.lambda.common.helper.string.StringHelper;
 import com.lambda.lambda.common.util.string.StringList;
 
@@ -75,6 +76,15 @@ public class FileHelper {
             ConditionalHelper.ifThen(isDirectory, () -> FileHelper
                     .forEachFileDescendant(file.getAbsolutePath(), includeDirectories, action));
         });
+    }
+
+    /**
+     * Gets the time of when a file was last modified - which is the number of milliseconds from
+     * (0:00:00 GMT January 1, 1970) that it was modified or 0L if there is an error collecting the
+     * file
+     */
+    public static long getTimeLastModifiedInEpochMilliseconds(File file) {
+        return file.lastModified() + TimeHelper.PST_SHIFT;
     }
 
     /**

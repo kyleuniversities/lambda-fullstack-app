@@ -1,6 +1,7 @@
 package com.lambda.lambda.common.helper.number;
 
 import com.lambda.lambda.common.helper.ConditionalHelper;
+import com.lambda.lambda.common.helper.string.StringHelper;
 
 /**
  * Helper class for String Operations
@@ -18,6 +19,13 @@ public final class IntegerHelper {
      */
     public static boolean greaterThan(int a, int b) {
         return a > b;
+    }
+
+    /**
+     * Gets the length of an integer
+     */
+    public static int length(int value) {
+        return StringHelper.toString(value).length();
     }
 
     /**
