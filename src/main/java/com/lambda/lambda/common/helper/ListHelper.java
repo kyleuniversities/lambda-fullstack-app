@@ -2,6 +2,7 @@ package com.lambda.lambda.common.helper;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -26,6 +27,25 @@ public final class ListHelper {
      */
     public static <T> void addAll(List<T> list, Collection<? extends T> collection) {
         list.addAll(collection);
+    }
+
+    /**
+     * Clones a List
+     */
+    public static <T> List<T> clone(List<T> list) {
+        List<T> clone = ListHelper.newArrayList(list.size());
+        ListHelper.forEach(list, (T item) -> clone.add(item));
+        return clone;
+    }
+
+    /**
+     * Returns a list of filtered items from a specified list by a specified condition
+     */
+    public static <T> List<T> filterClone(List<T> list, Predicate<T> condition) {
+        List<T> filtered = ListHelper.newArrayList(list.size());
+        ListHelper.forEach(list, (T item) -> ConditionalHelper.ifThen(condition.test(item),
+                () -> filtered.add(item)));
+        return filtered;
     }
 
     /**
@@ -126,6 +146,13 @@ public final class ListHelper {
      */
     public static <T> void removeLastItems(List<T> list, int length) {
         IterationHelper.forEach(length, () -> list.remove(list.size() - 1));
+    }
+
+    /**
+     * Sorts elements in a List
+     */
+    public static <T extends Comparable<? super T>> void sort(List<T> list) {
+        Collections.sort(list);
     }
 
     /**

@@ -37,6 +37,13 @@ public final class StringHelper {
     }
 
     /**
+     * Copies a String List
+     */
+    public static StringList copyStringList(StringList list) {
+        return list.copy();
+    }
+
+    /**
      * Checks if a string ends with a given target
      */
     public static boolean endsWith(String text, String target) {
@@ -115,7 +122,7 @@ public final class StringHelper {
     }
 
     /**
-     * Creates a new String Map
+     * Creates a new String List
      */
     public static StringList newStringList() {
         return StringList.newInstance();
