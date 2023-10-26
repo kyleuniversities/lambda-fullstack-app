@@ -7,12 +7,27 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import com.lambda.lambda.common.util.entry.Entry;
 
 /**
  * Helper class for Map Operations
  */
 public final class MapHelper {
+    /**
+     * Checks if a map contains a key
+     */
+    public static <K, V> boolean containsKey(Map<K, V> map, K key) {
+        return map.containsKey(key);
+    }
+
+    /**
+     * Checks if a map does not contain a key
+     */
+    public static <K, V> boolean doesNotContainKey(Map<K, V> map, K key) {
+        return !MapHelper.containsKey(map, key);
+    }
+
     /**
      * Iterates through the entries of a Map
      */
@@ -30,6 +45,22 @@ public final class MapHelper {
             }
         }
         return true;
+    }
+
+    /**
+     * Gets a value from a map
+     */
+    public static <K, V> V get(Map<K, V> map, K key) {
+        return map.get(key);
+    }
+
+    /**
+     * Gets a value from a map, and if it does not exists, initializes it first
+     */
+    public static <K, V> V getInitialize(Map<K, V> map, K key, Supplier<V> valueInitializer) {
+        ConditionalHelper.ifThen(MapHelper.doesNotContainKey(map, key),
+                () -> MapHelper.put(map, key, valueInitializer.get()));
+        return MapHelper.get(map, key);
     }
 
     /**
@@ -53,6 +84,13 @@ public final class MapHelper {
      */
     public static <K, V> LinkedHashMap<K, V> newLinkedHashMap() {
         return new LinkedHashMap<>();
+    }
+
+    /**
+     * Puts a key-value pair into a map
+     */
+    public static <K, V> void put(Map<K, V> map, K key, V value) {
+        map.put(key, value);
     }
 
     /**

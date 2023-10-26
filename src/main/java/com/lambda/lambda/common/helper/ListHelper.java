@@ -1,6 +1,7 @@
 package com.lambda.lambda.common.helper;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -13,6 +14,20 @@ import java.util.function.Predicate;
  * Helper class for List Operations
  */
 public final class ListHelper {
+    /**
+     * Adds an element
+     */
+    public static <T> void add(List<T> list, T item) {
+        list.add(item);
+    }
+
+    /**
+     * Adds multiple elements
+     */
+    public static <T> void addAll(List<T> list, Collection<? extends T> collection) {
+        list.addAll(collection);
+    }
+
     /**
      * Iterates through the elements of a list
      */
@@ -49,6 +64,34 @@ public final class ListHelper {
     }
 
     /**
+     * Gets an element
+     */
+    public static <T> T get(List<T> list, int index) {
+        return list.get(index);
+    }
+
+    /**
+     * Gets an element from the perspective of index backwards from the last index
+     */
+    public static <T> T getWithReverseIndex(List<T> list, int reverseIndex) {
+        return list.get(list.size() - 1 - reverseIndex);
+    }
+
+    /**
+     * Checks if a condition is true for all items in a list
+     */
+    public static <T> boolean isTrueForAll(List<T> list, Predicate<T> condition) {
+        return ListHelper.forEach(list, condition);
+    }
+
+    /**
+     * Checks if a condition is true for any item in a list
+     */
+    public static <T> boolean isTrueForAny(List<T> list, Predicate<T> condition) {
+        return !ListHelper.forEach(list, (T item) -> !condition.test(item));
+    }
+
+    /**
      * Maps the values of a List
      */
     public static <T, U> List<U> map(List<T> list, Function<T, U> mapping) {
@@ -76,6 +119,13 @@ public final class ListHelper {
      */
     public static <T> LinkedList<T> newLinkedList() {
         return new LinkedList<>();
+    }
+
+    /**
+     * Removes the last elements of a List, the amount of which specified by a given length
+     */
+    public static <T> void removeLastItems(List<T> list, int length) {
+        IterationHelper.forEach(length, () -> list.remove(list.size() - 1));
     }
 
     /**
