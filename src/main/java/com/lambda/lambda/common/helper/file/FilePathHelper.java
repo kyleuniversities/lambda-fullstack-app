@@ -2,13 +2,7 @@ package com.lambda.lambda.common.helper.file;
 
 import java.io.File;
 import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.BiPredicate;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import com.lambda.lambda.common.helper.ArrayHelper;
 import com.lambda.lambda.common.helper.ConditionalHelper;
-import com.lambda.lambda.common.helper.FunctionHelper;
 import com.lambda.lambda.common.helper.ListHelper;
 import com.lambda.lambda.common.helper.string.StringHelper;
 import com.lambda.lambda.common.helper.string.StringReplacementHelper;
@@ -58,6 +52,15 @@ public class FilePathHelper {
         String slashedPath = FilePathHelper.toSlashedPath(path);
         int lastSlashIndex = StringHelper.lastIndexOf(slashedPath, '/');
         return StringHelper.substring(slashedPath, lastSlashIndex + 1);
+    }
+
+    /**
+     * Gets the parent folder path in relation to a file path
+     */
+    public static String getParentFolderPath(File file) {
+        String slashedPath = FilePathHelper.toSlashedPath(file.getAbsolutePath());
+        int lastSlashIndex = StringHelper.lastIndexOf(slashedPath, '/');
+        return StringHelper.substring(slashedPath, 0, lastSlashIndex);
     }
 
     /**

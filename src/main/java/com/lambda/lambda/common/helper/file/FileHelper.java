@@ -1,7 +1,11 @@
 package com.lambda.lambda.common.helper.file;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOError;
 import java.io.IOException;
@@ -19,12 +23,63 @@ import com.lambda.lambda.common.helper.FunctionHelper;
 import com.lambda.lambda.common.helper.ListHelper;
 import com.lambda.lambda.common.helper.TimeHelper;
 import com.lambda.lambda.common.helper.string.StringHelper;
+import com.lambda.lambda.common.util.file.ByteList;
 import com.lambda.lambda.common.util.string.StringList;
 
 /**
  * Helper class for File Operations
  */
 public class FileHelper {
+    /**
+     * Copies a file
+     */
+    public static void copyFile(File source, File destination) {
+        FileHelper.exportByteList(FileHelper.getByteList(source), destination.getAbsolutePath());
+    }
+
+    /**
+     * Copies a folder
+     */
+    public static void copyFolder(File source, File destination) {
+        String sourceFolderPath = source.getAbsolutePath();
+        String destinationFolderPath = destination.getAbsolutePath();
+        ConditionalHelper.ifThen(FileHelper.fileExists(destination),
+                () -> FileHelper.deleteFolder(destination));
+        FileHelper.forEachFileDescendant(sourceFolderPath, (File sourceFile) -> {
+            String relativePath = FilePathHelper.getRelativePath(sourceFolderPath, sourceFile);
+            File destinationFile = FileHelper.newFile(destinationFolderPath + "/" + relativePath);
+            String destinationFileParentFolderPath =
+                    FilePathHelper.getParentFolderPath(destinationFile);
+            FileHelper.makeNewDirectoryAtPath(destinationFileParentFolderPath);
+            FileHelper.copyFile(sourceFile, destinationFile);
+        });
+    }
+
+    /**
+     * Deletes a file
+     */
+    public static void deleteFile(File file) {
+        file.delete();
+    }
+
+    /**
+     * Deletes a folder
+     */
+    public static void deleteFolder(File folder) {
+        FileHelper.forEachFile(folder.getAbsolutePath(), (File file) -> {
+            boolean isDirectory = file.isDirectory();
+            ConditionalHelper.ifThen(isDirectory, () -> FileHelper.deleteFolder(file));
+            ConditionalHelper.ifThen(!isDirectory, () -> FileHelper.deleteFile(file));
+        });
+    }
+
+    /**
+     * Exports a byte list into a file
+     */
+    public static void exportByteList(ByteList byteList, String path) {
+        byteList.flush(path);
+    }
+
     /**
      * Exports lines as into a text file
      */
@@ -46,6 +101,13 @@ public class FileHelper {
      */
     public static void exportText(String text, String path) {
         FileHelper.exportStringList(StringHelper.split(text, "[\n]"), path);
+    }
+
+    /**
+     * Checks if a file exists
+     */
+    public static boolean fileExists(File file) {
+        return file.exists();
     }
 
     /**
@@ -76,6 +138,13 @@ public class FileHelper {
             ConditionalHelper.ifThen(isDirectory, () -> FileHelper
                     .forEachFileDescendant(file.getAbsolutePath(), includeDirectories, action));
         });
+    }
+
+    /**
+     * Gets the byte list of any file
+     */
+    public static ByteList getByteList(File file) {
+        return ByteList.newInstanceFromFilePath(file.getAbsolutePath());
     }
 
     /**
@@ -129,6 +198,31 @@ public class FileHelper {
     }
 
     /**
+     * Makes a new directory at a specified path. All intermediary parent directories will be made
+     * as well. If the directory already exists, do nothing.
+     */
+    public static void makeNewDirectoryAtPath(String path) {
+        FileHelper.newFile(path).mkdirs();
+    }
+
+    /**
+     * Creates a new Buffered Input Stream object
+     */
+    public static BufferedInputStream newBufferedInputStream(FileInputStream fileInputStream)
+            throws IOException {
+        return new BufferedInputStream(fileInputStream);
+    }
+
+
+    /**
+     * Creates a new Buffered Output Stream object
+     */
+    public static BufferedOutputStream newBufferedOutputStream(FileOutputStream fileOutputStream)
+            throws IOException {
+        return new BufferedOutputStream(fileOutputStream);
+    }
+
+    /**
      * Creates a new Buffered Reader object
      */
     public static BufferedReader newBufferedReader(String path) throws IOException {
@@ -140,6 +234,20 @@ public class FileHelper {
      */
     public static File newFile(String path) {
         return new File(path);
+    }
+
+    /**
+     * Creates a new File Input Stream object
+     */
+    public static FileInputStream newFileInputStream(String path) throws IOException {
+        return new FileInputStream(path);
+    }
+
+    /**
+     * Creates a new File Output Stream object
+     */
+    public static FileOutputStream newFileOutputStream(String path) throws IOException {
+        return new FileOutputStream(path);
     }
 
     /**
