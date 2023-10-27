@@ -40,6 +40,14 @@ public class FileHelper {
     /**
      * Copies a folder
      */
+    public static void copyFolder(String sourceFolderPath, String destinationFolderPath) {
+        FileHelper.copyFolder(FileHelper.newFile(sourceFolderPath),
+                FileHelper.newFile(destinationFolderPath));
+    }
+
+    /**
+     * Copies a folder
+     */
     public static void copyFolder(File source, File destination) {
         String sourceFolderPath = source.getAbsolutePath();
         String destinationFolderPath = destination.getAbsolutePath();
@@ -101,6 +109,13 @@ public class FileHelper {
      */
     public static void exportText(String text, String path) {
         FileHelper.exportStringList(StringHelper.split(text, "[\n]"), path);
+    }
+
+    /**
+     * Checks if a file exists
+     */
+    public static boolean fileExists(String path) {
+        return FileHelper.fileExists(FileHelper.newFile(path));
     }
 
     /**

@@ -8,6 +8,7 @@ import com.lambda.lambda.app.helper.CodeHelper;
 import com.lambda.lambda.common.helper.ListHelper;
 import com.lambda.lambda.common.helper.MapHelper;
 import com.lambda.lambda.common.helper.string.StringHelper;
+import com.lambda.lambda.common.helper.string.StringTrimmerHelper;
 import com.lambda.lambda.common.util.string.StringList;
 
 public final class LambdaArguments {
@@ -62,6 +63,11 @@ public final class LambdaArguments {
 
     public StringList getBodyLines() {
         return StringHelper.split(this.bodyText, "[\n]");
+    }
+
+    public StringList getNonEmptyBodyLines() {
+        return StringList.newInstance(ListHelper.filterClone(this.getBodyLines(),
+                (String line) -> !StringTrimmerHelper.trimLeadingWhiteSpace(line).isEmpty()));
     }
 
     public int getEnvironmentSize() {

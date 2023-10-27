@@ -149,6 +149,13 @@ public final class ListHelper {
     }
 
     /**
+     * Reverses elements in a List
+     */
+    public static <T> void reverse(List<T> list) {
+        Collections.reverse(list);
+    }
+
+    /**
      * Sorts elements in a List
      */
     public static <T extends Comparable<? super T>> void sort(List<T> list) {

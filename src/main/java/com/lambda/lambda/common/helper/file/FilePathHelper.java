@@ -57,6 +57,13 @@ public class FilePathHelper {
     /**
      * Gets the parent folder path in relation to a file path
      */
+    public static String getParentFolderPath(String path) {
+        return FilePathHelper.getParentFolderPath(FileHelper.newFile(path));
+    }
+
+    /**
+     * Gets the parent folder path in relation to a file path
+     */
     public static String getParentFolderPath(File file) {
         String slashedPath = FilePathHelper.toSlashedPath(file.getAbsolutePath());
         int lastSlashIndex = StringHelper.lastIndexOf(slashedPath, '/');
