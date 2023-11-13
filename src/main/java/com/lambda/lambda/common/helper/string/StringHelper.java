@@ -103,6 +103,20 @@ public final class StringHelper {
     }
 
     /**
+     * Checks if a String is empty
+     */
+    public static boolean isEmpty(String text) {
+        return text.isEmpty();
+    }
+
+    /**
+     * Checks if a String is not empty
+     */
+    public static boolean isNotEmpty(String text) {
+        return !StringHelper.isEmpty(text);
+    }
+
+    /**
      * Returns the last found index of a character
      */
     public static int lastIndexOf(String text, char target) {

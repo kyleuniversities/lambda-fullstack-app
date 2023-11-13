@@ -10,6 +10,7 @@ import com.lambda.lambda.app.util.LambdaArguments;
 import com.lambda.lambda.app.util.java.JavaFolderCopier;
 import com.lambda.lambda.app.util.java.JavaFunctionClassMaker;
 import com.lambda.lambda.app.util.java.JavaStructureClassMaker;
+import com.lambda.lambda.app.util.java.JavaVoidMethodMaker;
 import com.lambda.lambda.common.util.string.StringList;
 
 @CrossOrigin
@@ -41,5 +42,13 @@ public final class JavaController {
         JavaFolderCopier.newInstance().copy(sourceFolderPath, destinationFolderPath,
                 backupRepositoryFolderPath);
         return CodeHelper.toCode("The folder has been copied");
+    }
+
+    @PostMapping("/void")
+    public String voidMethods(@RequestBody LambdaArguments lambdaArguments) {
+        StringList methodLines =
+                JavaVoidMethodMaker.newInstance().make(lambdaArguments.getBodyText());
+        String methodLinesText = methodLines.toString();
+        return CodeHelper.toCode(methodLinesText);
     }
 }

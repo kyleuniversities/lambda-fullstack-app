@@ -98,6 +98,20 @@ public final class ListHelper {
     }
 
     /**
+     * Checks if a List is empty
+     */
+    public static <T> boolean isEmpty(List<T> list) {
+        return list.isEmpty();
+    }
+
+    /**
+     * Checks if a List is not empty
+     */
+    public static <T> boolean isNotEmpty(List<T> list) {
+        return !ListHelper.isEmpty(list);
+    }
+
+    /**
      * Checks if a condition is true for all items in a list
      */
     public static <T> boolean isTrueForAll(List<T> list, Predicate<T> condition) {
