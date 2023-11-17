@@ -10,6 +10,7 @@ import com.lambda.lambda.common.helper.FunctionHelper;
 import com.lambda.lambda.common.helper.IterationHelper;
 import com.lambda.lambda.common.helper.ListHelper;
 import com.lambda.lambda.common.util.string.StringList;
+import com.lambda.lambda.common.util.string.StringMap;
 
 /**
  * Helper class for String Operations
@@ -140,6 +141,13 @@ public final class StringHelper {
      */
     public static StringList newStringList() {
         return StringList.newInstance();
+    }
+
+    /**
+     * Creates a new String Map
+     */
+    public static StringMap newStringMap() {
+        return StringMap.newInstance();
     }
 
     /**

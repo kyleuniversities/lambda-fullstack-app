@@ -2,6 +2,7 @@ package com.lambda.lambda.app.util.java;
 
 import com.lambda.lambda.app.util.file.FileTextReplacer;
 import com.lambda.lambda.common.helper.ConditionalHelper;
+import com.lambda.lambda.common.helper.JavaHelper;
 import com.lambda.lambda.common.helper.ListHelper;
 import com.lambda.lambda.common.helper.TimeHelper;
 import com.lambda.lambda.common.helper.file.FileHelper;
@@ -59,19 +60,7 @@ public final class JavaFolderCopier {
 
     // Private Helper Methods
     private String getPackageText(String folderPath) {
-        StringList packageTextParts = StringList.newInstance();
-        StringWrapper parentFolderPath =
-                StringWrapper.newInstance(FilePathHelper.toSlashedPath(folderPath));
-        StringWrapper part =
-                StringWrapper.newInstance(FilePathHelper.getFileName(parentFolderPath.getValue()));
-        ConditionalHelper.whileLoop(() -> !part.isEqualTo("src") && !part.isEqualTo("java"), () -> {
-            packageTextParts.add(part.getValue());
-            parentFolderPath
-                    .setValue(FilePathHelper.getParentFolderPath(parentFolderPath.getValue()));
-            part.setValue(FilePathHelper.getFileName(parentFolderPath.getValue()));
-        });
-        ListHelper.reverse(packageTextParts);
-        return StringHelper.join(packageTextParts, ".");
+        return JavaHelper.getPackageText(folderPath);
     }
 
     // Initialization Methods

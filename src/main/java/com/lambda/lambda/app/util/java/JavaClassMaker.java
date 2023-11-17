@@ -3,6 +3,7 @@ package com.lambda.lambda.app.util.java;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import com.lambda.lambda.app.util.java.util.InstanceField;
 import com.lambda.lambda.common.helper.ConditionalHelper;
 import com.lambda.lambda.common.helper.ListHelper;
 import com.lambda.lambda.common.helper.string.StringDeleterHelper;
@@ -209,7 +210,7 @@ abstract class JavaClassMaker {
     protected final void compileInstanceFields() {
         this.addClassLine("\t// Instance Fields");
         this.forEachInstanceField((InstanceField field) -> {
-            this.classLines.add("\tprivate " + field.dataType + " " + field.getName() + ";");
+            this.classLines.add("\tprivate " + field.getDataType() + " " + field.getName() + ";");
         });
         this.addClassLine("");
     }
@@ -327,33 +328,6 @@ abstract class JavaClassMaker {
         this.lineCommentLines = StringHelper.newStringList();
         this.classDeclarationLines = StringHelper.newStringList();
         this.instanceFields = ListHelper.newArrayList();
-    }
-
-    // Internal class used to store instance field data
-    static class InstanceField {
-        // Instance Fields
-        private String dataType;
-        private String name;
-
-        // New Instance Method
-        public static InstanceField newInstance(String dataType, String name) {
-            return new InstanceField(dataType, name);
-        }
-
-        // Constructor Method
-        private InstanceField(String dataType, String name) {
-            this.dataType = dataType;
-            this.name = name;
-        }
-
-        // Accessor Methods
-        public String getDataType() {
-            return this.dataType;
-        }
-
-        public String getName() {
-            return this.name;
-        }
     }
 
     // Internal class used to store class declaration data

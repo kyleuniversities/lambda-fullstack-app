@@ -14,7 +14,7 @@ import com.lambda.lambda.common.util.wrapper.StringWrapper;
 /**
  * Utility class for making void methods
  */
-public final class JavaVoidMethodMaker {
+public final class JavaVoidMethodsMaker {
     // Instance Fields
     private String text;
     private StringList lines;
@@ -22,12 +22,12 @@ public final class JavaVoidMethodMaker {
     private StringList methodLines;
 
     // New Instance Method
-    public static JavaVoidMethodMaker newInstance() {
-        return new JavaVoidMethodMaker();
+    public static JavaVoidMethodsMaker newInstance() {
+        return new JavaVoidMethodsMaker();
     }
 
     // Constructor Method
-    private JavaVoidMethodMaker() {
+    private JavaVoidMethodsMaker() {
         super();
     }
 

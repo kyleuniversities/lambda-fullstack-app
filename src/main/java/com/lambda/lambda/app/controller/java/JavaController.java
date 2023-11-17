@@ -9,8 +9,10 @@ import com.lambda.lambda.app.helper.CodeHelper;
 import com.lambda.lambda.app.util.LambdaArguments;
 import com.lambda.lambda.app.util.java.JavaFolderCopier;
 import com.lambda.lambda.app.util.java.JavaFunctionClassMaker;
+import com.lambda.lambda.app.util.java.JavaGetterMethodsMaker;
+import com.lambda.lambda.app.util.java.JavaSetterMethodsMaker;
 import com.lambda.lambda.app.util.java.JavaStructureClassMaker;
-import com.lambda.lambda.app.util.java.JavaVoidMethodMaker;
+import com.lambda.lambda.app.util.java.JavaVoidMethodsMaker;
 import com.lambda.lambda.common.util.string.StringList;
 
 @CrossOrigin
@@ -47,7 +49,23 @@ public final class JavaController {
     @PostMapping("/void")
     public String voidMethods(@RequestBody LambdaArguments lambdaArguments) {
         StringList methodLines =
-                JavaVoidMethodMaker.newInstance().make(lambdaArguments.getBodyText());
+                JavaVoidMethodsMaker.newInstance().make(lambdaArguments.getBodyText());
+        String methodLinesText = methodLines.toString();
+        return CodeHelper.toCode(methodLinesText);
+    }
+
+    @PostMapping({"/get", "/getter", "/getters"})
+    public String getterMethods(@RequestBody LambdaArguments lambdaArguments) {
+        StringList methodLines =
+                JavaGetterMethodsMaker.newInstance().make(lambdaArguments.getBodyText());
+        String methodLinesText = methodLines.toString();
+        return CodeHelper.toCode(methodLinesText);
+    }
+
+    @PostMapping({"/set", "/setter", "/setters"})
+    public String setterMethods(@RequestBody LambdaArguments lambdaArguments) {
+        StringList methodLines =
+                JavaSetterMethodsMaker.newInstance().make(lambdaArguments.getBodyText());
         String methodLinesText = methodLines.toString();
         return CodeHelper.toCode(methodLinesText);
     }

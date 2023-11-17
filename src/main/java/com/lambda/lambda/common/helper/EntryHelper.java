@@ -3,6 +3,9 @@ package com.lambda.lambda.common.helper;
 import com.lambda.lambda.common.util.entry.Entry;
 import com.lambda.lambda.common.util.entry.OrdinaryValueEntry;
 
+/**
+ * Helper class for Entry Operations
+ */
 public class EntryHelper {
     /**
      * Creates a new Entry

@@ -10,7 +10,7 @@ import com.lambda.lambda.app.util.LambdaArguments;
 import com.lambda.lambda.app.util.java.JavaFolderCopier;
 import com.lambda.lambda.app.util.java.JavaFunctionClassMaker;
 import com.lambda.lambda.app.util.java.JavaStructureClassMaker;
-import com.lambda.lambda.app.util.java.JavaVoidMethodMaker;
+import com.lambda.lambda.app.util.java.JavaVoidMethodsMaker;
 import com.lambda.lambda.common.util.string.StringList;
 
 @CrossOrigin
