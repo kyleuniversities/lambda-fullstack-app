@@ -33,6 +33,10 @@ public final class LambdaArguments {
     }
 
     // Accessor Methods
+    public StringList getArgumentsClone() {
+        return StringList.newInstance(this.arguments);
+    }
+
     public int getArgumentsSize() {
         return this.arguments.size();
     }
