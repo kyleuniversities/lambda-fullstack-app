@@ -32,5 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 
+/notes
 /saves
 /src/main/java/com/lambda/lambda/test

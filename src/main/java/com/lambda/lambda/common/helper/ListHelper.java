@@ -68,6 +68,27 @@ public final class ListHelper {
     }
 
     /**
+     * Filters leading and trailing elements that do not match the condition
+     */
+    public static <T> void filterSurrounding(List<T> list, Predicate<T> condition) {
+        List<T> filtered = ListHelper.filterSurroundingClone(list, condition);
+        ListHelper.clear(list);
+        ListHelper.addAll(list, filtered);
+    }
+
+    /**
+     * Filters leading and trailing elements that do not match the condition
+     */
+    public static <T> List<T> filterSurroundingClone(List<T> list, Predicate<T> condition) {
+        int firstMatchingIndex = ListHelper.indexOf(list, condition);
+        if (firstMatchingIndex == -1) {
+            return ListHelper.newArrayList();
+        }
+        int lastMatchingIndex = ListHelper.lastIndexOf(list, condition);
+        return ListHelper.subList(list, firstMatchingIndex, lastMatchingIndex + 1);
+    }
+
+    /**
      * Iterates through the elements of a list
      */
     public static <T> void forEach(List<T> list, Consumer<T> action) {
@@ -176,6 +197,25 @@ public final class ListHelper {
      */
     public static <T> boolean isTrueForAny(List<T> list, Predicate<T> condition) {
         return !ListHelper.forEach(list, (T item) -> !condition.test(item));
+    }
+
+    /**
+     * Returns the last found index of a query
+     */
+    public static <T> int lastIndexOf(List<T> list, Predicate<T> query) {
+        return ListHelper.lastIndexOf(list, (Integer i, T item) -> query.test(item));
+    }
+
+    /**
+     * Returns the last found index of a query
+     */
+    public static <T> int lastIndexOf(List<T> list, BiPredicate<Integer, T> query) {
+        for (int i = list.size(); i > -1; i--) {
+            if (query.test(i, list.get(i))) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
