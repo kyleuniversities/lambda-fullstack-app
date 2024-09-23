@@ -1,57 +1,34 @@
 package com.lambda.lambda.common.util.image.svg;
 
+import java.util.List;
+
 /**
- * Structure class for SVG CubicCurve Command
+ * Structure class for SVG Cubic Curve Command
  */
 public final class SvgCubicCurveCommand extends SvgCommand {
     // Instance Fields
-    private double x1;
-    private double y1;
-    private double x2;
-    private double y2;
-    private double x3;
-    private double y3;
+    private List<Double> xList;
+    private List<Double> yList;
 
     // New Instance Method
-    public static SvgCubicCurveCommand newInstance(boolean isLowercase, double x1, double y1,
-            double x2, double y2, double x3, double y3) {
-        return new SvgCubicCurveCommand(isLowercase, x1, y1, x2, y2, x3, y3);
+    public static SvgCubicCurveCommand newInstance(boolean isLowercase, List<Double> xList,
+            List<Double> yList) {
+        return new SvgCubicCurveCommand(isLowercase, xList, yList);
     }
 
     // Constructor Method
-    private SvgCubicCurveCommand(boolean isLowercase, double x1, double y1, double x2, double y2,
-            double x3, double y3) {
+    private SvgCubicCurveCommand(boolean isLowercase, List<Double> xList, List<Double> yList) {
         super(isLowercase);
-        this.x1 = x1;
-        this.y1 = y1;
-        this.x2 = x2;
-        this.y2 = y2;
-        this.x3 = x3;
-        this.y3 = y3;
+        this.xList = xList;
+        this.yList = yList;
     }
 
     // Accessor Methods
-    public double getX1() {
-        return this.x1;
+    public List<Double> getXList() {
+        return this.xList;
     }
 
-    public double getY1() {
-        return this.y1;
-    }
-
-    public double getX2() {
-        return this.x2;
-    }
-
-    public double getY2() {
-        return this.y2;
-    }
-
-    public double getX3() {
-        return this.x3;
-    }
-
-    public double getY3() {
-        return this.y3;
+    public List<Double> getYList() {
+        return this.yList;
     }
 }
