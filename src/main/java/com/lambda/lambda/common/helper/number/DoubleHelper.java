@@ -7,10 +7,31 @@ import com.lambda.lambda.common.helper.ConditionalHelper;
  */
 public final class DoubleHelper {
     /**
-     * Returns the absolute value of an doubleeger
+     * Returns the absolute value of an double
      */
     public static double absoluteValue(double value) {
         return ConditionalHelper.ifReturnElse(value < 0, -value, value);
+    }
+
+    /**
+     * Returns the average of two doubles
+     */
+    public static double average(double a, double b) {
+        return (a + b) / 2.0;
+    }
+
+    /**
+     * Returns if two doubles are equal under a threshold
+     */
+    public static boolean doubleEquals(double a, double b) {
+        return DoubleHelper.doubleEquals(a, b, 0.000001);
+    }
+
+    /**
+     * Returns if two doubles are equal under a threshold
+     */
+    public static boolean doubleEquals(double a, double b, double zeroThreshold) {
+        return DoubleHelper.absoluteValue(a - b) < zeroThreshold;
     }
 
     /**
@@ -21,10 +42,45 @@ public final class DoubleHelper {
     }
 
     /**
+     * Returns if a doubles is zero under a threshold
+     */
+    public static boolean isZero(double a) {
+        return DoubleHelper.isZero(a, 0.000001);
+    }
+
+    /**
+     * Returns if a doubles is zero under a threshold
+     */
+    public static boolean isZero(double a, double zeroThreshold) {
+        return DoubleHelper.doubleEquals(a, 0.0, zeroThreshold);
+    }
+
+    /**
      * Operation for less than
      */
     public static boolean lessThan(double a, double b) {
         return a < b;
+    }
+
+    /**
+     * Returns the maximum of two doubles
+     */
+    public static double max(double a, double b) {
+        return a < b ? b : a;
+    }
+
+    /**
+     * Returns the minimum of two doubles
+     */
+    public static double min(double a, double b) {
+        return a > b ? b : a;
+    }
+
+    /**
+     * Returns the square root of an double
+     */
+    public static double squareRoot(double value) {
+        return Math.sqrt(value);
     }
 
     /**
