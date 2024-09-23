@@ -1,4 +1,4 @@
-package com.lambda.lambda.app.util.java.util;
+package com.lambda.lambda.app.utility.java.util;
 
 /**
  * Utility structure for instance fields

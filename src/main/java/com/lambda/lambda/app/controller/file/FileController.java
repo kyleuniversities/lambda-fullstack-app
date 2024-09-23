@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.lambda.lambda.app.helper.CodeHelper;
-import com.lambda.lambda.app.util.LambdaArguments;
-import com.lambda.lambda.app.util.file.FileTextFinder;
-import com.lambda.lambda.app.util.file.FileTextReplacer;
-import com.lambda.lambda.app.util.file.FileTextTimeLastModifiedSorter;
-import com.lambda.lambda.app.util.java.JavaStructureClassMaker;
+import com.lambda.lambda.app.utility.LambdaArguments;
+import com.lambda.lambda.app.utility.file.FileTextFinder;
+import com.lambda.lambda.app.utility.file.FileTextReplacer;
+import com.lambda.lambda.app.utility.file.FileTextTimeLastModifiedSorter;
+import com.lambda.lambda.app.utility.java.JavaStructureClassMaker;
 import com.lambda.lambda.common.helper.string.StringTrimmerHelper;
 import com.lambda.lambda.common.util.string.StringList;
 

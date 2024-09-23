@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.lambda.lambda.app.helper.CodeHelper;
-import com.lambda.lambda.app.util.LambdaArguments;
+import com.lambda.lambda.app.utility.LambdaArguments;
 import com.lambda.lambda.common.helper.IterationHelper;
 import com.lambda.lambda.common.helper.number.DoubleHelper;
 import com.lambda.lambda.common.util.wrapper.DoubleWrapper;

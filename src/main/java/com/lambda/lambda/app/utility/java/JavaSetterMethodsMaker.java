@@ -1,4 +1,4 @@
-package com.lambda.lambda.app.util.java;
+package com.lambda.lambda.app.utility.java;
 
 import com.lambda.lambda.common.helper.string.StringHelper;
 

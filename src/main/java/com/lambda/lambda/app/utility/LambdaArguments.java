@@ -1,4 +1,4 @@
-package com.lambda.lambda.app.util;
+package com.lambda.lambda.app.utility;
 
 import java.util.List;
 import java.util.Map;

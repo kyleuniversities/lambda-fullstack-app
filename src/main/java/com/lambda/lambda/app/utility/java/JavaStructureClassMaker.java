@@ -1,6 +1,6 @@
-package com.lambda.lambda.app.util.java;
+package com.lambda.lambda.app.utility.java;
 
-import com.lambda.lambda.app.util.java.util.InstanceField;
+import com.lambda.lambda.app.utility.java.util.InstanceField;
 import com.lambda.lambda.common.helper.ConditionalHelper;
 import com.lambda.lambda.common.helper.ListHelper;
 import com.lambda.lambda.common.helper.string.StringHelper;

@@ -208,6 +208,7 @@ public class FilePathHelper {
         ListHelper.add(textExtensionList, ".js");
         ListHelper.add(textExtensionList, ".md");
         ListHelper.add(textExtensionList, ".py");
+        ListHelper.add(textExtensionList, ".swift");
         ListHelper.add(textExtensionList, ".ts");
         ListHelper.add(textExtensionList, ".tsx");
         ListHelper.add(textExtensionList, ".txt");

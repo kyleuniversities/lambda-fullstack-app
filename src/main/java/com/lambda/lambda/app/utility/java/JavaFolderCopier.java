@@ -1,6 +1,6 @@
-package com.lambda.lambda.app.util.java;
+package com.lambda.lambda.app.utility.java;
 
-import com.lambda.lambda.app.util.file.FileTextReplacer;
+import com.lambda.lambda.app.utility.file.FileTextReplacer;
 import com.lambda.lambda.common.helper.ConditionalHelper;
 import com.lambda.lambda.common.helper.JavaHelper;
 import com.lambda.lambda.common.helper.ListHelper;

@@ -1,4 +1,4 @@
-package com.lambda.lambda.app.util.string;
+package com.lambda.lambda.app.utility.string;
 
 import java.io.File;
 import java.util.List;

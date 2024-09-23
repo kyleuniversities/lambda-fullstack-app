@@ -1,8 +1,8 @@
-package com.lambda.lambda.app.util.java;
+package com.lambda.lambda.app.utility.java;
 
 import java.util.List;
 import java.util.function.Consumer;
-import com.lambda.lambda.app.util.java.util.InstanceField;
+import com.lambda.lambda.app.utility.java.util.InstanceField;
 import com.lambda.lambda.common.helper.ListHelper;
 import com.lambda.lambda.common.helper.string.StringDeleterHelper;
 import com.lambda.lambda.common.helper.string.StringHelper;
