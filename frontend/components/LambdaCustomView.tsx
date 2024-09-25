@@ -9,9 +9,9 @@ import { RequestHelper } from "@/helper/RequestHelper";
 import { lambdaRequest } from "@/services/lambda-request";
 import { nextLambdaMessage } from "@/services/lambda-message";
 
-export const LambdaView = (): JSX.Element => {
+export const LambdaCustomView = (): JSX.Element => {
   // Constants
-  const idTag = "LambdaView";
+  const idTag = "LambdaCustomView";
   const [message, setMessage] = useState("");
   const [input, setInput] = useState("");
   const [body, setBody] = useState("");
