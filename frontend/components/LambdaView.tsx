@@ -7,7 +7,11 @@ import { LambdaViewOutputColumn } from "./LambdaViewOutputColumn";
 import { PromiseHelper } from "@/common/helper/js/PromiseHelper";
 import { RequestHelper } from "@/helper/RequestHelper";
 import { lambdaRequest } from "@/services/lambda-request";
-import { nextLambdaMessage } from "@/services/lambda-message";
+import {
+  loadingLambdaMessage,
+  nextLambdaMessage,
+} from "@/services/lambda-message";
+import { wait } from "@/util/event";
 
 export const LambdaView = (): JSX.Element => {
   // Constants
@@ -25,7 +29,10 @@ export const LambdaView = (): JSX.Element => {
   // Helper Methods
   const performCommand = async () => {
     const responseText = await lambdaRequest(input, body);
+    await wait(300);
     setOutput(responseText);
+    await wait(300);
+    setMessage(loadingLambdaMessage());
     return PromiseHelper.newConservativeVoidPromise();
   };
 
@@ -35,6 +42,8 @@ export const LambdaView = (): JSX.Element => {
       case "Enter":
         event.preventDefault();
         await performCommand();
+        await wait(1000);
+        setMessage(nextLambdaMessage());
         break;
     }
     return PromiseHelper.newConservativeVoidPromise();
@@ -70,9 +79,7 @@ export const LambdaView = (): JSX.Element => {
 const LambdaViewContainer = (props: { children: ReactNode }): JSX.Element => {
   return (
     <div id="lambda-view">
-      <div className="text-3xl font-bold">
-        Lambda Application - Custom Console
-      </div>
+      <div className="text-3xl font-bold">Lambda Custom Console</div>
       {props.children}
     </div>
   );
