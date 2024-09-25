@@ -8,6 +8,8 @@
   --light-green: rgb(107, 255, 136);
   --lighter-green: rgb(157,255,186);
   --dark-green: rgb(6,60,12);
+  --sky-blue: rgb(64,210,255);
+  --dark-sky-blue: rgb(34,190,255);
   --site-background-color: var(--green);
   --site-text-color: var(--black);
   --title-color: var(--black);
@@ -95,6 +97,26 @@ body {
   border-radius: 20px;
   border: 2px solid white;
   width: 8px;
+}
+
+.lambda-button {
+  padding: 5px;
+  border: 2px solid black;
+  border-radius: 20px;
+  background-color: var(--sky-blue);
+  font-weight: 500;
+}
+
+.lambda-button:hover {
+  background-color: var(--dark-sky-blue);
+}
+
+.controls-pane {
+  padding: 5px;
+  border: 2px solid black;
+  border-radius: 20px;
+  background-color: var(--lighter-green);
+  font-weight: 500;
 }
 
 #lambda-input {

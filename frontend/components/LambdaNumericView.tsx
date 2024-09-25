@@ -11,12 +11,14 @@ import { nextLambdaMessage } from "@/services/lambda-message";
 import { LabeledTextField } from "./LabeledTextField";
 import { doNothing } from "@/util/event";
 import { LabeledTextArea } from "./LabeledTextArea";
+import { LabeledComponent } from "./LabeledComponent";
 
 export const LambdaNumericView = (): JSX.Element => {
   // Constants
   const idTag = "LambdaNumericView";
-  const [expression, setExpression] = useState("");
-  const [argument, setArgument] = useState("0");
+  const [expression, setExpression] = useState("x^2 + y^2");
+  const [argument1, setArgument1] = useState("6");
+  const [argument2, setArgument2] = useState("8");
   const [output, setOutput] = useState("");
 
   // Handler Methods
@@ -24,39 +26,57 @@ export const LambdaNumericView = (): JSX.Element => {
     setExpression(event.target.value)
   }
 
-  const handleArgumentChange = (event: any) => {
-    setArgument(event.target.value)
+  const handleArgumentChange1 = (event: any) => {
+    setArgument1(event.target.value)
+  }
+
+  const handleArgumentChange2 = (event: any) => {
+    setArgument2(event.target.value)
   }
 
   const handleOutputChange = (event: any) => {
     setOutput(event.target.value)
   }
 
+  const handleSubmit = () => {
+    alert("Submit")
+  }
+
   return (
     <LambdaViewContainer>
       <LambdaViewGrid>
-        <LabeledTextField 
-          title="Function f(x):"
-          containerHeight="100px"
-          value={expression}
-          onKeyDown={doNothing}
-          onChange={handleExpressionChange}
-        />
-        <LabeledTextField 
-          title="x:"
-          containerHeight="100px"
-          value={argument}
-          onKeyDown={doNothing}
-          onChange={handleArgumentChange}
-        />
-        <LabeledTextArea
-          title="Output:"
-          containerHeight="600px"
-          textAreaHeight="600px"
-          disabled
-          value={output}
-          onChange={handleOutputChange}
-        />
+        <form onSubmit={handleSubmit}>
+          <LabeledTextField 
+            title="Function f(x)"
+            containerHeight="70px"
+            value={expression}
+            onKeyDown={doNothing}
+            onChange={handleExpressionChange}
+          />
+          <LabeledTextField 
+            title="x"
+            containerHeight="70px"
+            value={argument1}
+            onKeyDown={doNothing}
+            onChange={handleArgumentChange1}
+          />
+          <LabeledTextField 
+            title="y"
+            containerHeight="70px"
+            value={argument2}
+            onKeyDown={doNothing}
+            onChange={handleArgumentChange2}
+          />
+          <EvaluateButton />
+          <LabeledTextArea
+            title="Output"
+            containerHeight="400px"
+            textAreaHeight="300px"
+            disabled
+            value={output}
+            onChange={handleOutputChange}
+          />
+        </form>
       </LambdaViewGrid>
     </LambdaViewContainer>
   );
@@ -74,5 +94,13 @@ const LambdaViewContainer = (props: { children: ReactNode }): JSX.Element => {
 };
 
 const LambdaViewGrid = (props: { children: ReactNode }): JSX.Element => {
-  return <div className="flex w-full">{props.children}</div>;
+  return <div className="py-5 w-full">{props.children}</div>;
 };
+
+const EvaluateButton = () => {
+  return (
+    <LabeledComponent title="Evaluate" height="70px">
+      <button className="lambda-button w-full" type="submit" value="Evaluate">Evaluate</button>
+    </LabeledComponent>
+  )
+}

@@ -1,5 +1,5 @@
-import { LambdaView } from "@/components/LambdaView";
+import { LambdaNumericView } from "@/components/LambdaNumericView";
 
 export default function NumericPage() {
-  return <LambdaView />;
+  return <LambdaNumericView />;
 }
