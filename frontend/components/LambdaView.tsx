@@ -79,7 +79,14 @@ export const LambdaView = (): JSX.Element => {
 const LambdaViewContainer = (props: { children: ReactNode }): JSX.Element => {
   return (
     <div id="lambda-view">
-      <div className="text-3xl font-bold">Lambda Custom Console</div>
+      <div className="w-full flex">
+        <div className="text-3xl font-bold">Lambda Custom Console</div>
+        <div className="ml-auto justify-end pr-5">
+          <a href="/">
+            <img className="home-icon-image" src="/logo-icon.png"></img>
+          </a>
+        </div>
+      </div>
       {props.children}
     </div>
   );

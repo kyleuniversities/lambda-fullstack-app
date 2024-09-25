@@ -60,6 +60,10 @@ body {
   color: var(--title-color)
 }
 
+.home-icon-image {
+  width: 40px;
+}
+
 #lambda-view {
   background-color: var(--light-green);
   padding-top: 30px;
