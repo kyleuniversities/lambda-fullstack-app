@@ -25,7 +25,7 @@ export class RequestHelper {
     bodyText: string,
     environment: StringMap,
   ): Promise<string> {
-    const host = process.env["REACT_APP_API_HOST"] || DEFAULT_HOST;
+    const host = process.env["NEXT_PUBLIC_API_HOST"] || DEFAULT_HOST;
     const fullUrl = `${host}/${url}`;
     const headers = { "Content-Type": "application/json" };
     const body = {
@@ -40,10 +40,10 @@ export class RequestHelper {
       body: JSON.stringify(body),
     };
     /*
-    alert('REQUEST: ' + fullUrl);
-    alert('EXAMPLE: ' + JSON.stringify({ message: 'Hi' }));
-    alert('BODY: ' + JSON.stringify(body));
-    alert('OPTIONS: ' + JSON.stringify(options));
+    alert("REQUEST: " + fullUrl);
+    alert("EXAMPLE: " + JSON.stringify({ message: "Hi" }));
+    alert("BODY: " + JSON.stringify(body));
+    alert("OPTIONS: " + JSON.stringify(options));
     /**/
     return fetch(fullUrl, options)
       .then((data) => data.json())

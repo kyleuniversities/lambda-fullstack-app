@@ -8,7 +8,7 @@ export const lambdaRequest = async (
   body: string,
 ): Promise<string> => {
   const inputParts = InputHelper.splitInputText(StringMap.newInstance(), input);
-  const rawOutput = RequestHelper.request(
+  const rawOutput = await RequestHelper.request(
     "POST",
     inputParts[1],
     inputParts.slice(2),
