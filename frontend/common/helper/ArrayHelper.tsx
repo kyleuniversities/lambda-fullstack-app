@@ -32,6 +32,21 @@ export class ArrayHelper {
   }
 
   /**
+   * Selects the index of first element that matches the condition
+   */
+  public static indexOf<T>(
+    array: Array<T>,
+    condition: (item: T) => boolean,
+  ): number {
+    for (let i = 0; i < array.length; i++) {
+      if (condition(array[i])) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  /**
    * Maps a list
    */
   public static map<T, U>(array: Array<T>, mapping: (item: T) => U): U[] {

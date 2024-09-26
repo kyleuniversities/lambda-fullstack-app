@@ -12,6 +12,7 @@ import { Container, Menu, MenuItem } from "semantic-ui-react";
 import { LambdaViewContainer } from "./LambdaViewContainer";
 import { toPx } from "@/util/style";
 import { StringHelper } from "@/common/helper/string/StringHelper";
+import { LambdaSubmitButton } from "./LambdaSubmitButton";
 
 export const LambdaStringView = (): JSX.Element => {
   // Constants
@@ -93,14 +94,16 @@ export const LambdaStringView = (): JSX.Element => {
           />
           <LabeledTextArea
             title="Body"
-            containerHeight={`${320 + textFieldHeight * (2 - numberOfInputFields())}px`}
-            textAreaHeight={`${270 + textFieldHeight * (2 - numberOfInputFields())}px`}
+            containerHeight={`${200 + textFieldHeight * (2 - numberOfInputFields())}px`}
+            textAreaHeight={`${157 + textFieldHeight * (2 - numberOfInputFields())}px`}
             disabled={false}
             placeholder={bodyPlaceholder}
             value={body}
             onChange={handleBodyChange}
           />
+          <LambdaSubmitButton title="Perform Action" />
         </div>
+        <LambdaViewOutputColumn output={output} />
       </LambdaViewGrid>
     </LambdaViewContainer>
   );

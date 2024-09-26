@@ -28,6 +28,7 @@
 
 body {
   color: var(--site-text-color);
+  background-color: var(--light-green);
 }
 
 .home-page {
@@ -130,6 +131,16 @@ body {
 
 .lambda-button:hover {
   background-color: var(--dark-sky-blue);
+}
+
+.lambda-dropdown {
+  width: 100%;
+  height: 40px;
+  padding: 5px;
+  border: 2px solid black;
+  border-radius: 20px;
+  background-color: var(--lighter-5-green);
+  font-weight: 500;
 }
 
 .controls-pane {
