@@ -1,14 +1,21 @@
-import { StringList, StringMap } from '../../util/string';
-import { ArrayHelper } from './../ArrayHelper';
+import { StringList, StringMap } from "../../util/string";
+import { ArrayHelper } from "./../ArrayHelper";
 
 export class StringHelper {
   private constructor() {}
 
   /**
+   * Capitalizes the first letter of a String
+   */
+  public static capitalizeFirstLetter(text: string): string {
+    return text[0].toUpperCase() + text.substring(1);
+  }
+
+  /**
    * Creates a new empty String
    */
   public static newEmptyString(): string {
-    return ""
+    return "";
   }
 
   /**
@@ -22,7 +29,7 @@ export class StringHelper {
    * Creates a new String Map
    */
   public static newStringMap(
-    keyValuePairList?: Iterable<readonly [string, string]>
+    keyValuePairList?: Iterable<readonly [string, string]>,
   ): StringMap {
     return StringMap.newInstance(keyValuePairList);
   }
@@ -44,7 +51,7 @@ export class StringHelper {
   public static substringEquals(
     text: string,
     target: string,
-    index: number
+    index: number,
   ): boolean {
     if (index + target.length > text.length) {
       return false;

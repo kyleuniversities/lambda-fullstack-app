@@ -36,6 +36,7 @@ const LambdaMessageArea = (props: { value: string }): JSX.Element => {
       title="Message"
       containerHeight="200px"
       textAreaHeight="150px"
+      placeholder=""
       disabled={true}
       value={props.value}
       onChange={doNothing}
@@ -52,6 +53,7 @@ const LambdaInputField = (props: {
     <LabeledTextField
       title="Input"
       containerHeight="100px"
+      placeholder="Enter the command you would like run"
       value={props.value}
       onKeyDown={props.onKeyDown}
       onChange={props.onChange}
@@ -69,6 +71,7 @@ const LambdaBodyArea = (props: {
       containerHeight="320px"
       textAreaHeight="270px"
       disabled={false}
+      placeholder="Enter the body parameter of your command"
       value={props.value}
       onChange={props.onChange}
     />

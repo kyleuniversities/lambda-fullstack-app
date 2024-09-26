@@ -6,6 +6,7 @@ type LabeledTextAreaProps = {
   containerHeight: string;
   textAreaHeight: string;
   disabled: boolean;
+  placeholder: string;
   value: string;
   onChange: (event: any) => void;
 };
@@ -22,6 +23,7 @@ export const LabeledTextArea = (props: LabeledTextAreaProps): JSX.Element => {
         className="lambda-text-box lambda-text-area"
         disabled={props.disabled}
         style={labeledTextAreaStyle}
+        placeholder={props.placeholder}
         value={props.value}
         onChange={props.onChange}
       />

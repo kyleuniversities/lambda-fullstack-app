@@ -8,13 +8,24 @@ type LabeledComponentProps = {
 };
 
 export const LabeledComponent = (props: LabeledComponentProps): JSX.Element => {
+  // Constants
+  const opacity = props.height.split(/[px%]+/)[0] === "0" ? "0%" : "100%";
+
+  // Style
   const labeledComponentStyle = {
     position: "relative",
     width: "100%",
     height: props.height,
+    opacity,
   };
+
+  // Return Component
   return (
-    <Container fluid style={labeledComponentStyle}>
+    <Container
+      className="labeled-component-label"
+      fluid
+      style={labeledComponentStyle}
+    >
       <div className="font-bold">{props.title}: </div>
       {props.children}
     </Container>

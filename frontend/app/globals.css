@@ -6,7 +6,13 @@
   --black: rgb(0,0,0);
   --green: rgb(24,228,48);
   --light-green: rgb(107, 255, 136);
+  --semi-lighter-green: rgb(142,230,168);
   --lighter-green: rgb(157,255,186);
+  --lighter-2-green: rgb(167,255,200);
+  --lighter-3-green: rgb(177,255,216);
+  --lighter-4-green: rgb(197,255,220);
+  --lighter-5-green: rgb(217,255,230);
+  --lighter-6-green: rgb(237,255,251);
   --dark-green: rgb(6,60,12);
   --sky-blue: rgb(64,210,255);
   --dark-sky-blue: rgb(34,190,255);
@@ -16,6 +22,8 @@
   --console-card-background-color: var(--light-green);
   --console-card-background-hover-color: var(--lighter-green);
   --console-card-border-color: var(--black);
+  --text-area-transition-time: 2.0s;
+  --text-transition-time: 1.0s;
 }
 
 body {
@@ -82,6 +90,15 @@ body {
   font-weight: 500;
 }
 
+.lambda-text-box::placeholder {
+  font-weight: 400;
+  color: rgb(128,128,128)
+}
+
+.lambda-text-area {
+  transition: var(--text-transition-time);
+}
+
 .lambda-text-area::-webkit-scrollbar {
   width: 8px;
 }
@@ -122,6 +139,41 @@ body {
   background-color: var(--lighter-green);
   font-weight: 500;
 }
+
+.controls-pane-menu {
+  display: flex;
+}
+
+.controls-pane-menu-item {
+  background-color: var(--semi-lighter-green);
+  border-radius: 10px;
+}
+
+.controls-pane-menu-item:hover {
+  background-color: var(--lighter-3-green);
+}
+
+.controls-pane-menu-active-item {
+  background-color: var(--lighter-5-green);
+  border-radius: 10px;
+}
+
+.controls-pane-description {
+  background-color: var(--semi-lighter-green);
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  height: 60px;
+}
+
+.labeled-component-label {
+  transition: var(--text-transition-time);
+}
+
 
 #lambda-input {
 

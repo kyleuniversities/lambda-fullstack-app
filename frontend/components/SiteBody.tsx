@@ -7,12 +7,12 @@ export default function SiteBody() {
       <SiteConsoleCard
         image="/number.png"
         title="Numerical Console"
-        to="/custom"
+        to="/numeric"
       />
       <SiteConsoleCard
         image="/string.png"
         title="String Console"
-        to="/custom"
+        to="/string"
       />
       <SiteConsoleCard
         image="/custom.png"

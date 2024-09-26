@@ -21,6 +21,7 @@ const LambdaOutputArea = (props: { value: string }): JSX.Element => {
       containerHeight="570px"
       textAreaHeight="100%"
       disabled={true}
+      placeholder=""
       value={props.value}
       onChange={doNothing}
     />

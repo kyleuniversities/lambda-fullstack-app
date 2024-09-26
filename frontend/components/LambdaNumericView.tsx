@@ -12,6 +12,7 @@ import { LabeledTextField } from "./LabeledTextField";
 import { doNothing } from "@/util/event";
 import { LabeledTextArea } from "./LabeledTextArea";
 import { LabeledComponent } from "./LabeledComponent";
+import { LambdaViewContainer } from "./LambdaViewContainer";
 
 export const LambdaNumericView = (): JSX.Element => {
   // Constants
@@ -23,46 +24,49 @@ export const LambdaNumericView = (): JSX.Element => {
 
   // Handler Methods
   const handleExpressionChange = (event: any) => {
-    setExpression(event.target.value)
-  }
+    setExpression(event.target.value);
+  };
 
   const handleArgumentChange1 = (event: any) => {
-    setArgument1(event.target.value)
-  }
+    setArgument1(event.target.value);
+  };
 
   const handleArgumentChange2 = (event: any) => {
-    setArgument2(event.target.value)
-  }
+    setArgument2(event.target.value);
+  };
 
   const handleOutputChange = (event: any) => {
-    setOutput(event.target.value)
-  }
+    setOutput(event.target.value);
+  };
 
   const handleSubmit = () => {
-    alert("Submit")
-  }
+    alert("Submit");
+  };
 
   return (
-    <LambdaViewContainer>
+    <LambdaViewContainer title="Lambda Numerical Console">
       <LambdaViewGrid>
         <form onSubmit={handleSubmit}>
-          <LabeledTextField 
-            title="Function f(x)"
+          <LabeledTextField
+            title="Function f(x,y)"
             containerHeight="70px"
+            placeholder="Enter the function you would like to evaluate"
             value={expression}
             onKeyDown={doNothing}
             onChange={handleExpressionChange}
           />
-          <LabeledTextField 
+          <LabeledTextField
             title="x"
             containerHeight="70px"
+            placeholder="Enter value for x"
             value={argument1}
             onKeyDown={doNothing}
             onChange={handleArgumentChange1}
           />
-          <LabeledTextField 
+          <LabeledTextField
             title="y"
             containerHeight="70px"
+            placeholder="Enter value for y"
             value={argument2}
             onKeyDown={doNothing}
             onChange={handleArgumentChange2}
@@ -73,23 +77,13 @@ export const LambdaNumericView = (): JSX.Element => {
             containerHeight="400px"
             textAreaHeight="300px"
             disabled
+            placeholder=""
             value={output}
             onChange={handleOutputChange}
           />
         </form>
       </LambdaViewGrid>
     </LambdaViewContainer>
-  );
-};
-
-const LambdaViewContainer = (props: { children: ReactNode }): JSX.Element => {
-  return (
-    <div id="lambda-view">
-      <div className="text-3xl font-bold">
-        Lambda Application - Numeric Console
-      </div>
-      {props.children}
-    </div>
   );
 };
 
@@ -100,7 +94,9 @@ const LambdaViewGrid = (props: { children: ReactNode }): JSX.Element => {
 const EvaluateButton = () => {
   return (
     <LabeledComponent title="Evaluate" height="70px">
-      <button className="lambda-button w-full" type="submit" value="Evaluate">Evaluate</button>
+      <button className="lambda-button w-full" type="submit" value="Evaluate">
+        Evaluate
+      </button>
     </LabeledComponent>
-  )
-}
+  );
+};

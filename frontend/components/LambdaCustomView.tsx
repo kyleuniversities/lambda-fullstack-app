@@ -12,6 +12,7 @@ import {
   nextLambdaMessage,
 } from "@/services/lambda-message";
 import { wait } from "@/util/event";
+import { LambdaViewContainer } from "./LambdaViewContainer";
 
 export const LambdaCustomView = (): JSX.Element => {
   // Constants
@@ -60,7 +61,7 @@ export const LambdaCustomView = (): JSX.Element => {
   };
 
   return (
-    <LambdaViewContainer>
+    <LambdaViewContainer title="Lambda Custom Console">
       <LambdaViewGrid>
         <LambdaViewUserColumn
           message={message}
@@ -73,22 +74,6 @@ export const LambdaCustomView = (): JSX.Element => {
         <LambdaViewOutputColumn output={output} />
       </LambdaViewGrid>
     </LambdaViewContainer>
-  );
-};
-
-const LambdaViewContainer = (props: { children: ReactNode }): JSX.Element => {
-  return (
-    <div id="lambda-view">
-      <div className="w-full flex">
-        <div className="text-3xl font-bold">Lambda Custom Console</div>
-        <div className="ml-auto justify-end pr-5">
-          <a href="/">
-            <img className="home-icon-image" src="/logo-icon.png"></img>
-          </a>
-        </div>
-      </div>
-      {props.children}
-    </div>
   );
 };
 
