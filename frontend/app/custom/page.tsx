@@ -1,5 +1,5 @@
-import { LambdaView } from "@/components/LambdaView";
+import { LambdaCustomView } from "@/components/LambdaCustomView";
 
 export default function CustomPage() {
-  return <LambdaView />;
+  return <LambdaCustomView />;
 }

@@ -13,9 +13,9 @@ import {
 } from "@/services/lambda-message";
 import { wait } from "@/util/event";
 
-export const LambdaView = (): JSX.Element => {
+export const LambdaCustomView = (): JSX.Element => {
   // Constants
-  const idTag = "LambdaView";
+  const idTag = "LambdaCustomView";
   const [message, setMessage] = useState("");
   const [input, setInput] = useState("");
   const [body, setBody] = useState("");

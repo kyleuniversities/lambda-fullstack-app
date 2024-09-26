@@ -10,6 +10,7 @@ export default function SiteConsoleCard(parameters: ConsoleCardParameters) {
   return (
     <a href={parameters.to}>
       <div className="site-console-card flex">
+<<<<<<< HEAD
         <div>
           <img className="site-console-card-image" src={parameters.image} />
         </div>
@@ -17,6 +18,15 @@ export default function SiteConsoleCard(parameters: ConsoleCardParameters) {
           <div className="font-bold text-3xl">{parameters.title}</div>
         </div>
       </div>
+=======
+      <div>
+        <img className="site-console-card-image" src={parameters.image} />
+      </div>
+      <div className="site-console-card-text p-2">
+        <div className="font-bold text-3xl">{parameters.title}</div>
+      </div>
+    </div>
+>>>>>>> app/numeric-page
     </a>
   );
 }

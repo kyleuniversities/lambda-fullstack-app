@@ -5,6 +5,13 @@ export class StringHelper {
   private constructor() {}
 
   /**
+   * Creates a new empty String
+   */
+  public static newEmptyString(): string {
+    return ""
+  }
+
+  /**
    * Creates a new empty String List
    */
   public static newEmptyStringList(): StringList {
