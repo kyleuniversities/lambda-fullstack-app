@@ -51,23 +51,49 @@ public final class ComplexNumberHelper {
      */
     public static ComplexNumber parseComplexNumber(String text) {
         String trimmedText = StringDeleterHelper.deleteAllInstances(text, ' ');
-        if (!trimmedText.contains("i") || trimmedText.isEmpty()) {
+        if (trimmedText.isEmpty()) {
+            return ComplexNumber.newInstance();
+        }
+        if (!trimmedText.contains("i")) {
             return ComplexNumber.newInstance(Double.parseDouble(trimmedText), 0);
         }
         char firstChar = trimmedText.charAt(0);
-        boolean isSigned = firstChar == '-' || firstChar == '+';
-        String componentsText = ConditionalHelper.ifReturnElse(isSigned, "", "+") + trimmedText;
-        StringList parts = StringHelper.split(componentsText.substring(1), "[+-]+");
-        String rawFirstPart = parts.get(0);
-        String firstPart = ConditionalHelper.ifReturnElse(isSigned, firstChar, "+") + rawFirstPart;
-        if (firstPart.contains("i")) {
-            return ComplexNumber.newInstance(0,
-                    Double.parseDouble(trimmedText.substring(0, trimmedText.length() - 1)));
+        boolean firstPartIsSigned = firstChar == '+' || firstChar == '-';
+        String succeedingText =
+                trimmedText.substring(ConditionalHelper.ifReturnElse(firstPartIsSigned, 1, 0));
+        StringList parts = StringHelper.split(succeedingText, "[+-]+");
+        if (parts.size() == 1) {
+            String imaginaryText =
+                    ConditionalHelper.ifReturnElse(firstPartIsSigned, firstChar + "", "+")
+                            + succeedingText;
+            return ComplexNumberHelper.parseImaginaryNumber(imaginaryText);
         }
-        String sign = componentsText.charAt(1 + rawFirstPart.length()) + "";
-        String secondPart = sign + parts.get(1);
-        return ComplexNumber.newInstance(Double.parseDouble(firstPart),
-                Double.parseDouble(secondPart.substring(0, secondPart.length() - 1)));
+        String realText = ConditionalHelper.ifReturnElse(firstPartIsSigned, firstChar + "", "+")
+                + parts.get(0);
+        String imaginarySign = succeedingText.substring(parts.get(0).length());
+        String imaginaryText = imaginarySign + parts.get(1);
+        return ComplexNumber.newInstance(Double.parseDouble(realText), 0.0)
+                .add(ComplexNumberHelper.parseImaginaryNumber(imaginaryText));
+    }
+
+    /**
+     * Returns a imaginary number from text
+     */
+    public static ComplexNumber parseImaginaryNumber(String text) {
+        String trimmedText = StringDeleterHelper
+                .deleteAllInstances(StringDeleterHelper.deleteAllInstances(text, 'i'), ' ');
+        if (trimmedText.isEmpty()) {
+            return ComplexNumber.newInstance(0.0, 1.0);
+        }
+        char firstChar = trimmedText.charAt(0);
+        boolean firstPartIsSigned = firstChar == '+' || firstChar == '-';
+        int signMultiplier = ConditionalHelper.ifReturnElse(firstChar == '-', -1, 1);
+        String succeedingText =
+                trimmedText.substring(ConditionalHelper.ifReturnElse(firstPartIsSigned, 1, 0));
+        if (succeedingText.isEmpty()) {
+            return ComplexNumber.newInstance(0.0, signMultiplier * 1.0);
+        }
+        return ComplexNumber.newInstance(0.0, signMultiplier * Double.parseDouble(succeedingText));
     }
 
     /**

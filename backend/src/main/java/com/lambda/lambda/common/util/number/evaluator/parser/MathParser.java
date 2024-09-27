@@ -65,14 +65,14 @@ public final class MathParser {
         ConditionalHelper.whileLoopUntilFalse(() -> {
             // Set Up Iteration Expression
             MathExpression firstUnaryExpression = firstUnaryExpressionWrapper.getValue();
+            MathTokens currentTokenType = this.getCurrentTokenType();
+            int currentTokenDepth = this.getTokenDepth(currentTokenType);
             boolean postTermOperationTokenTypeIsTerminating =
                     this.postTermOperationTokenTypeIsTerminating();
             boolean postTermOperationTokenTypeIsShallowerDepth =
-                    !postTermOperationTokenTypeIsTerminating && MathTokenHelper
-                            .getBinaryOperatorDepth(this.getCurrentTokenType()) < depthIndex;
+                    !postTermOperationTokenTypeIsTerminating && currentTokenDepth < depthIndex;
             boolean postTermOperationTokenTypeIsDeeperDepth =
-                    !postTermOperationTokenTypeIsTerminating && MathTokenHelper
-                            .getBinaryOperatorDepth(this.getCurrentTokenType()) > depthIndex;
+                    !postTermOperationTokenTypeIsTerminating && currentTokenDepth > depthIndex;
             boolean postTermOperationTokenTypeIsSameDepth = !postTermOperationTokenTypeIsTerminating
                     && !postTermOperationTokenTypeIsShallowerDepth
                     && !postTermOperationTokenTypeIsDeeperDepth;
@@ -90,7 +90,10 @@ public final class MathParser {
             ListHelper.add(expressions, termOperationExpression);
             // Handle same depth
             ConditionalHelper.ifThen(postTermOperationTokenTypeIsSameDepth, () -> {
-                MathTokens operationTokenType = this.popCurrentTokenType();
+                boolean isBinaryOperator = MathTokenHelper.isBinaryOperator(currentTokenType);
+                ConditionalHelper.ifThen(isBinaryOperator, () -> this.popCurrentToken());
+                MathTokens operationTokenType = ConditionalHelper.newTernaryOperation(
+                        isBinaryOperator, () -> currentTokenType, () -> MathTokens.TIMES);
                 MathBinaryOperator operator = MathTokenHelper.getBinaryOperator(operationTokenType);
                 ListHelper.add(operators, operator);
                 firstUnaryExpressionWrapper.setValue(this.parseUnaryExpression());
@@ -136,7 +139,11 @@ public final class MathParser {
         if (this.currentTokenTypeIsEqualTo(MathTokens.NUMBER_LITERAL)) {
             String literalText = this.popCurrentTokenText();
             boolean isImaginary = literalText.contains("i");
-            String componentText = StringDeleterHelper.deleteAllInstances(literalText, 'i');
+            String rawComponentText = StringDeleterHelper.deleteAllInstances(literalText, 'i');
+            String componentText = ConditionalHelper.ifReturnElse(
+                    rawComponentText.equals("+") || rawComponentText.equals("-")
+                            || rawComponentText.isEmpty(),
+                    rawComponentText + "1", rawComponentText);
             double component = Double.parseDouble(componentText);
             double a = ConditionalHelper.ifReturnElse(!isImaginary, component, 0.0);
             double b = ConditionalHelper.ifReturnElse(isImaginary, component, 0.0);
@@ -161,34 +168,40 @@ public final class MathParser {
         MathExpression functionExpression = null;
         this.expect(MathTokens.LN, MathTokens.SIN, MathTokens.COS, MathTokens.TAN, MathTokens.SEC,
                 MathTokens.CSC, MathTokens.COT);
+        MathExpression exponent = null;
+        if (this.currentTokenTypeIsEqualTo(MathTokens.TO_THE_POWER_OF)) {
+            this.expect(MathTokens.TO_THE_POWER_OF);
+            exponent = this.parseUnitaryExpression();
+        }
         this.expect(MathTokens.LEFT_PARENTHESES);
         switch (functionName) {
             case "ln":
-                functionExpression =
-                        MathNaturalLogFunctionExpression.newInstance(this.parseExpression());
+                functionExpression = MathNaturalLogFunctionExpression.newInstance(exponent,
+                        this.parseExpression());
                 break;
             case "sin":
-                functionExpression = MathSineFunctionExpression.newInstance(this.parseExpression());
+                functionExpression =
+                        MathSineFunctionExpression.newInstance(exponent, this.parseExpression());
                 break;
             case "cos":
                 functionExpression =
-                        MathCosineFunctionExpression.newInstance(this.parseExpression());
+                        MathCosineFunctionExpression.newInstance(exponent, this.parseExpression());
                 break;
             case "tan":
                 functionExpression =
-                        MathTangentFunctionExpression.newInstance(this.parseExpression());
+                        MathTangentFunctionExpression.newInstance(exponent, this.parseExpression());
                 break;
             case "sec":
                 functionExpression =
-                        MathSecantFunctionExpression.newInstance(this.parseExpression());
+                        MathSecantFunctionExpression.newInstance(exponent, this.parseExpression());
                 break;
             case "csc":
-                functionExpression =
-                        MathCosecantFunctionExpression.newInstance(this.parseExpression());
+                functionExpression = MathCosecantFunctionExpression.newInstance(exponent,
+                        this.parseExpression());
                 break;
             case "cot":
-                functionExpression =
-                        MathCotangentFunctionExpression.newInstance(this.parseExpression());
+                functionExpression = MathCotangentFunctionExpression.newInstance(exponent,
+                        this.parseExpression());
                 break;
             default:
                 throw new IllegalStateException("Unexpected function: " + functionName);
@@ -222,6 +235,13 @@ public final class MathParser {
     }
 
     // Minor Methods
+    private int getTokenDepth(MathTokens type) {
+        if (MathTokenHelper.isBinaryOperator(type)) {
+            return MathTokenHelper.getBinaryOperatorDepth(type);
+        }
+        return MathTokenHelper.getBinaryOperatorDepth(MathTokens.TIMES);
+    }
+
     private boolean postTermOperationTokenTypeIsTerminating() {
         return this.currentTokenTypeIsEqualTo(MathTokens.RIGHT_BRACE, MathTokens.RIGHT_BRACKET,
                 MathTokens.RIGHT_PARENTHESES, MathTokens.END);

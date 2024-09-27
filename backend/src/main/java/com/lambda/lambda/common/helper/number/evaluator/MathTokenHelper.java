@@ -156,6 +156,13 @@ public final class MathTokenHelper {
     }
 
     /**
+     * Contains the binary operator
+     */
+    public static boolean isBinaryOperator(MathTokens type) {
+        return MathTokenHelper.BINARY_OPERATOR_MAP.containsKey(type);
+    }
+
+    /**
      * Contains the keyword text
      */
     public static boolean isKeywordString(String text) {

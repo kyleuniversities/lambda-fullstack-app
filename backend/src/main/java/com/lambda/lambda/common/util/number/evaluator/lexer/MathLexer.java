@@ -49,6 +49,9 @@ public final class MathLexer implements Iterator<MathToken> {
 
     @Override
     public MathToken next() {
+        if (this.isI()) {
+            return this.lexI();
+        }
         if (this.isNumberLiteral()) {
             return this.lexNumberLiteral();
         }
@@ -69,6 +72,10 @@ public final class MathLexer implements Iterator<MathToken> {
     }
 
     // Conditional Methods
+    private boolean isI() {
+        return this.substringEquals("i");
+    }
+
     private boolean isNumberLiteral() {
         return this.isDigit() || this.charIsEqualTo('i') || (this.hasNextChar()
                 && (IntegerHelper.isDigit(this.getNextChar()) && (this.charIsEqualTo('-', '.'))));
@@ -91,6 +98,10 @@ public final class MathLexer implements Iterator<MathToken> {
     }
 
     // Action Methods
+    private MathToken lexI() {
+        return this.newToken(MathTokens.NUMBER_LITERAL, this.popChar());
+    }
+
     private MathToken lexNumberLiteral() {
         return this.lexIteratedText(1, MathTokens.NUMBER_LITERAL,
                 this::isIterableNumberLiteralCharacter);
@@ -115,7 +126,7 @@ public final class MathLexer implements Iterator<MathToken> {
     }
 
     private MathToken lexFunctionName(String keywordText) {
-        return this.newTokenWithIncrement(MathTokenHelper.getKeywordType(keywordText), keywordText);
+        return this.newToken(MathTokenHelper.getKeywordType(keywordText), keywordText);
     }
 
     private MathToken lexIteratedText(int numberOfInitialPops, MathTokens type,
@@ -130,7 +141,7 @@ public final class MathLexer implements Iterator<MathToken> {
 
     // Iteration Methods
     private boolean isIterableNumberLiteralCharacter() {
-        return this.hasChar() && (this.isDigit() || this.charIsEqualTo('.', 'i'));
+        return this.hasChar() && (this.isDigit() || this.charIsEqualTo('.'));
     }
 
     private boolean isIterableIdentifierCharacter() {

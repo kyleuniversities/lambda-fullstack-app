@@ -16,8 +16,8 @@ import com.lambda.lambda.common.util.number.evaluator.util.MathToken;
 public final class NumberExpressionEvaluator {
     public static void main(String[] args) {
         System.out.println("\n\n<<Start>>\n\n");
-        String expression = "5i^6 + 1";
-        String xText = "6";
+        String expression = "e^x";
+        String xText = "-2+i";
         String yText = "10";
         System.out.println(xText);
         System.out.println(yText);

@@ -6,12 +6,17 @@ import com.lambda.lambda.common.util.number.ComplexNumber;
 public final class MathNaturalLogFunctionExpression extends MathFunctionExpression {
     // New Instance Method
     public static MathNaturalLogFunctionExpression newInstance(MathExpression argument) {
-        return new MathNaturalLogFunctionExpression(argument);
+        return new MathNaturalLogFunctionExpression(null, argument);
+    }
+
+    public static MathNaturalLogFunctionExpression newInstance(MathExpression exponent,
+            MathExpression argument) {
+        return new MathNaturalLogFunctionExpression(exponent, argument);
     }
 
     // New Instance Method
-    private MathNaturalLogFunctionExpression(MathExpression argument) {
-        super(argument);
+    private MathNaturalLogFunctionExpression(MathExpression exponent, MathExpression argument) {
+        super(exponent, argument);
     }
 
     // Main Instance Methods

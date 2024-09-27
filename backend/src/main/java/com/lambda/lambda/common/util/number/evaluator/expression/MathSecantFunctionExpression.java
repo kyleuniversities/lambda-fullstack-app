@@ -6,12 +6,17 @@ import com.lambda.lambda.common.util.number.ComplexNumber;
 public final class MathSecantFunctionExpression extends MathFunctionExpression {
     // New Instance Method
     public static MathSecantFunctionExpression newInstance(MathExpression argument) {
-        return new MathSecantFunctionExpression(argument);
+        return new MathSecantFunctionExpression(null, argument);
+    }
+
+    public static MathSecantFunctionExpression newInstance(MathExpression exponent,
+            MathExpression argument) {
+        return new MathSecantFunctionExpression(exponent, argument);
     }
 
     // New Instance Method
-    private MathSecantFunctionExpression(MathExpression argument) {
-        super(argument);
+    private MathSecantFunctionExpression(MathExpression exponent, MathExpression argument) {
+        super(exponent, argument);
     }
 
     // Main Instance Methods

@@ -6,12 +6,17 @@ import com.lambda.lambda.common.util.number.ComplexNumber;
 public final class MathSineFunctionExpression extends MathFunctionExpression {
     // New Instance Method
     public static MathSineFunctionExpression newInstance(MathExpression argument) {
-        return new MathSineFunctionExpression(argument);
+        return new MathSineFunctionExpression(null, argument);
+    }
+
+    public static MathSineFunctionExpression newInstance(MathExpression exponent,
+            MathExpression argument) {
+        return new MathSineFunctionExpression(exponent, argument);
     }
 
     // New Instance Method
-    private MathSineFunctionExpression(MathExpression argument) {
-        super(argument);
+    private MathSineFunctionExpression(MathExpression exponent, MathExpression argument) {
+        super(exponent, argument);
     }
 
     // Main Instance Methods
