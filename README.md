@@ -31,3 +31,15 @@ The String Console is a station that supports a wide variety String operations. 
 ## Custom Console
 
 The Custom Console is a command line station that is the most versatile of consoles.  It supports all commands performed by the Numeric and String Consoles and provides a fun and interactive way of going through a set of randomized sample commands.   
+
+&nbsp;
+
+&nbsp;
+
+## Release v1.0.0
+
+It is worth noting that Lambda originally was comprised of two separate repositories, one for the frontend and one for the backend.  These repositories have been developed to make a previous version of the application back in October 2023.  The URLs to those previous repositories are as follows:
+
+[https://github.com/kyleuniversities/lambda-frontend-app-v1](https://github.com/kyleuniversities/lambda-frontend-app-v1)
+
+[https://github.com/kyleuniversities/lambda-api-app-v1](https://github.com/kyleuniversities/lambda-api-app-v1)
