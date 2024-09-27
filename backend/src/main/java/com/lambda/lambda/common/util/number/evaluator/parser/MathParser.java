@@ -103,6 +103,7 @@ public final class MathParser {
 
     private MathExpression parseUnaryExpression() {
         if (this.currentTokenTypeIsEqualTo(MathTokens.MINUS)) {
+            this.expect(MathTokens.MINUS);
             return MathUnaryExpression.newInstance(this.parseUnitaryExpression(),
                     MathNegativeOperator.newInstance(), true);
         }
@@ -112,18 +113,21 @@ public final class MathParser {
     private MathExpression parseUnitaryExpression() {
         // Handle Parentheses
         if (this.currentTokenTypeIsEqualTo(MathTokens.LEFT_PARENTHESES)) {
+            this.expect(MathTokens.LEFT_PARENTHESES);
             MathExpression expression = this.parseExpression();
             this.expect(MathTokens.RIGHT_PARENTHESES);
             return MathParenthesesExpression.newInstance(expression);
         }
         // Handle Brackets
         if (this.currentTokenTypeIsEqualTo(MathTokens.LEFT_BRACKET)) {
+            this.expect(MathTokens.LEFT_BRACKET);
             MathExpression expression = this.parseExpression();
             this.expect(MathTokens.RIGHT_BRACKET);
             return MathBracketsExpression.newInstance(expression);
         }
         // Handle Braces
         if (this.currentTokenTypeIsEqualTo(MathTokens.LEFT_BRACE)) {
+            this.expect(MathTokens.LEFT_BRACE);
             MathExpression expression = this.parseExpression();
             this.expect(MathTokens.RIGHT_BRACE);
             return MathBracesExpression.newInstance(expression);

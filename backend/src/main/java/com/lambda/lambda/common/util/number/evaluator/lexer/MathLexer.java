@@ -11,6 +11,7 @@ import com.lambda.lambda.common.helper.number.evaluator.MathTokenHelper;
 import com.lambda.lambda.common.helper.string.CharacterHelper;
 import com.lambda.lambda.common.helper.string.StringDeleterHelper;
 import com.lambda.lambda.common.helper.string.StringHelper;
+import com.lambda.lambda.common.helper.string.StringReplacementHelper;
 import com.lambda.lambda.common.util.number.evaluator.util.MathToken;
 import com.lambda.lambda.common.util.number.evaluator.util.MathTokens;
 
@@ -37,6 +38,7 @@ public final class MathLexer implements Iterator<MathToken> {
             ListHelper.add(this.tokens, this.next());
             return this.hasNext();
         });
+        ListHelper.add(this.tokens, this.newToken(MathTokens.END, ""));
         return ListHelper.clone(this.tokens);
     }
 
@@ -209,7 +211,9 @@ public final class MathLexer implements Iterator<MathToken> {
 
     // Initialization Methods
     private void reset(String text) {
-        this.text = StringDeleterHelper.deleteAllInstances(text, ' ').toLowerCase();
+        this.text = StringReplacementHelper.replace(StringDeleterHelper
+                .deleteAllInstances(text, ' ').toLowerCase().replaceAll("\\\\pi", "\u0C30")
+                .replaceAll("pi", "\u0C30").replaceAll("π", "\\\\pi"), "\u0C30", "\\pi");
         this.index = 0;
         this.tokens = ListHelper.newArrayList();
     }

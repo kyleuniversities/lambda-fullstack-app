@@ -12,7 +12,11 @@ public final class ComplexNumber {
     private double a;
     private double b;
 
-    // New Instance Method
+    // New Instance Methods
+    public static ComplexNumber newInstance() {
+        return ComplexNumber.newInstance(0, 0);
+    }
+
     public static ComplexNumber newInstanceFromEulerExponent(ComplexNumber eulerExponent) {
         return ComplexNumber.newInstanceFromRadiusAngle(Math.exp(eulerExponent.a), eulerExponent.b);
     }

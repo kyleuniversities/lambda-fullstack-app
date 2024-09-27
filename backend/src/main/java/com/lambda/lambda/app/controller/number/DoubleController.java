@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.lambda.lambda.app.helper.CodeHelper;
 import com.lambda.lambda.app.utility.LambdaArguments;
+import com.lambda.lambda.common.helper.ConditionalHelper;
 import com.lambda.lambda.common.helper.IterationHelper;
+import com.lambda.lambda.common.helper.number.ComplexNumberHelper;
 import com.lambda.lambda.common.helper.number.DoubleHelper;
+import com.lambda.lambda.common.util.number.ComplexNumber;
 import com.lambda.lambda.common.util.wrapper.DoubleWrapper;
 import com.lambda.lambda.common.utility.number.expression.NumberExpressionEvaluator;
 
@@ -30,8 +33,15 @@ public final class DoubleController {
 
     @PostMapping("/evaluate")
     public String evaluate(@RequestBody LambdaArguments lambdaArguments) {
+        int numberOfArguments = lambdaArguments.getArgumentsSize();
         String expression = lambdaArguments.getArgument(0);
-        String result = NumberExpressionEvaluator.newInstance().evaluate(expression);
+        ComplexNumber x = ConditionalHelper.newTernaryOperation(numberOfArguments < 2,
+                () -> ComplexNumber.newInstance(),
+                () -> ComplexNumberHelper.parseComplexNumber(lambdaArguments.getArgument(1)));
+        ComplexNumber y = ConditionalHelper.newTernaryOperation(numberOfArguments < 3,
+                () -> ComplexNumber.newInstance(),
+                () -> ComplexNumberHelper.parseComplexNumber(lambdaArguments.getArgument(2)));
+        String result = NumberExpressionEvaluator.newInstance().evaluate(expression, x, y);
         return CodeHelper.toCode(result);
     }
 
