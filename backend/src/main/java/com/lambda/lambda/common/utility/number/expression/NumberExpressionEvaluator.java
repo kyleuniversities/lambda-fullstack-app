@@ -48,10 +48,15 @@ public final class NumberExpressionEvaluator {
     }
 
     public String evaluate(String expressionText, ComplexNumber x, ComplexNumber y) {
-        List<MathToken> tokens = MathLexer.newInstance().tokenize(expressionText);
-        MathExpression expression = MathParser.newInstance().parse(tokens, 0);
-        MathExpressionArguments arguments = MathExpressionArguments.newInstance(x, y);
-        ComplexNumber output = expression.evaluate(arguments);
-        return output.toString();
+        try {
+            List<MathToken> tokens = MathLexer.newInstance().tokenize(expressionText);
+            MathExpression expression = MathParser.newInstance().parse(tokens, 0);
+            MathExpressionArguments arguments = MathExpressionArguments.newInstance(x, y);
+            ComplexNumber output = expression.evaluate(arguments);
+            return output.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error: Unable to parse function expression.  Please check the formatting of your function.";
+        }
     }
 }
