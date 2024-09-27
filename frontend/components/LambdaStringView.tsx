@@ -13,6 +13,7 @@ import { LambdaViewContainer } from "./LambdaViewContainer";
 import { toPx } from "@/util/style";
 import { StringHelper } from "@/common/helper/string/StringHelper";
 import { LambdaSubmitButton } from "./LambdaSubmitButton";
+import { lambdaRequest } from "@/services/lambda-request";
 
 export const LambdaStringView = (): JSX.Element => {
   // Constants
@@ -70,38 +71,46 @@ export const LambdaStringView = (): JSX.Element => {
     setBody(event.target.value);
   };
 
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+    const result = await performFunction(model, input1, input2, body);
+    setOutput(result || "");
+  };
+
   return (
     <LambdaViewContainer title="Lambda String Console">
       <LambdaViewGrid>
         <div className="w-1/2 p-3 h-full">
-          <LambdaStringViewControlsPane model={model} setModel={setModel} />
-          <br />
-          <LabeledTextField
-            title={inputTitle1 || latestInputTitle1}
-            containerHeight={inputTitle1 ? textFieldHeightText : "0px"}
-            placeholder={inputPlaceholder1}
-            value={input1}
-            onKeyDown={doNothing}
-            onChange={handleInputChange1}
-          />
-          <LabeledTextField
-            title={inputTitle2 || latestInputTitle2}
-            containerHeight={inputTitle2 ? textFieldHeightText : "0px"}
-            placeholder={inputPlaceholder2}
-            value={input2}
-            onKeyDown={doNothing}
-            onChange={handleInputChange2}
-          />
-          <LabeledTextArea
-            title="Body"
-            containerHeight={`${200 + textFieldHeight * (2 - numberOfInputFields())}px`}
-            textAreaHeight={`${157 + textFieldHeight * (2 - numberOfInputFields())}px`}
-            disabled={false}
-            placeholder={bodyPlaceholder}
-            value={body}
-            onChange={handleBodyChange}
-          />
-          <LambdaSubmitButton title="Perform Action" />
+          <form onSubmit={handleSubmit}>
+            <LambdaStringViewControlsPane model={model} setModel={setModel} />
+            <br />
+            <LabeledTextField
+              title={inputTitle1 || latestInputTitle1}
+              containerHeight={inputTitle1 ? textFieldHeightText : "0px"}
+              placeholder={inputPlaceholder1}
+              value={input1}
+              onKeyDown={doNothing}
+              onChange={handleInputChange1}
+            />
+            <LabeledTextField
+              title={inputTitle2 || latestInputTitle2}
+              containerHeight={inputTitle2 ? textFieldHeightText : "0px"}
+              placeholder={inputPlaceholder2}
+              value={input2}
+              onKeyDown={doNothing}
+              onChange={handleInputChange2}
+            />
+            <LabeledTextArea
+              title="Body"
+              containerHeight={`${200 + textFieldHeight * (2 - numberOfInputFields())}px`}
+              textAreaHeight={`${157 + textFieldHeight * (2 - numberOfInputFields())}px`}
+              disabled={false}
+              placeholder={bodyPlaceholder}
+              value={body}
+              onChange={handleBodyChange}
+            />
+            <LambdaSubmitButton title="Perform Action" />
+          </form>
         </div>
         <LambdaViewOutputColumn output={output} />
       </LambdaViewGrid>
@@ -213,4 +222,37 @@ const ControlsPaneMenuItem = (props: {
       {props.name}
     </div>
   );
+};
+
+const performFunction = async (
+  model: StringViewControlsModel,
+  input1: string,
+  input2: string,
+  body: string,
+) => {
+  switch (model.getModeKey()) {
+    case "replace-normal":
+      return await lambdaRequest(
+        `run string/replace "${input1}" "${input2}"`,
+        body,
+      );
+    case "replace-cased":
+      return await lambdaRequest(
+        `run string/replace/cased "${input1}" "${input2}"`,
+        body,
+      );
+    case "replace-serial":
+      return await lambdaRequest(
+        `run string/replace/serial "${input1}" ${input2}`,
+        body,
+      );
+    case "code-convert_to_text":
+      return await lambdaRequest(`run string/code/to-text`, body);
+    case "code-convert_to_code":
+      return await lambdaRequest(`run string/code/to-code`, body);
+    case "tab-normalize":
+      return await lambdaRequest(`run string/tab`, body);
+    case "tab-tab_amount":
+      return await lambdaRequest(`run string/tab ${input1}`, body);
+  }
 };

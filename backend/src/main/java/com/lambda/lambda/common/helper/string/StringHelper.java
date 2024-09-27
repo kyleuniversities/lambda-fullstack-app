@@ -33,6 +33,13 @@ public final class StringHelper {
     }
 
     /**
+     * Decapitalizes the first letter of a String
+     */
+    public static String decapitalizeFirstLetter(String text) {
+        return text.substring(0, 1).toLowerCase() + text.substring(1);
+    }
+
+    /**
      * Creates a new String Builder
      */
     public static StringBuilder newBuilder() {

@@ -73,7 +73,7 @@ export default class StringViewControlsModel {
       case "replace":
         return ["normal", "cased", "serial"];
       case "code":
-        return ["convert_to_text", "convert_to_code"];
+        return ["convert_to_code", "convert_to_text"];
       case "tab":
         return ["normalize", "tab_amount"];
     }

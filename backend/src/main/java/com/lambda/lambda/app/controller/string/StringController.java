@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lambda.lambda.app.helper.CodeHelper;
 import com.lambda.lambda.app.utility.LambdaArguments;
 import com.lambda.lambda.app.utility.string.StringSerialReplacer;
+import com.lambda.lambda.app.utility.string.StringTabifier;
 import com.lambda.lambda.common.helper.ConditionalHelper;
 import com.lambda.lambda.common.helper.IterationHelper;
 import com.lambda.lambda.common.helper.string.StringHelper;
 import com.lambda.lambda.common.helper.string.StringReplacementHelper;
+import com.lambda.lambda.common.helper.string.StringTrimmerHelper;
 import com.lambda.lambda.common.util.string.StringList;
 
 @CrossOrigin
@@ -45,6 +47,23 @@ public final class StringController {
         return CodeHelper.toCode(StringHelper.join(parts, "\n"));
     }
 
+    @PostMapping("/code/to-code")
+    public String toCode(@RequestBody LambdaArguments lambdaArguments) {
+        String bodyText = lambdaArguments.getBodyText();
+        String result = CodeHelper.toCode(bodyText);
+        return CodeHelper.toCode(result);
+    }
+
+    @PostMapping("/code/to-text")
+    public String toText(@RequestBody LambdaArguments lambdaArguments) {
+        String bodyText =
+                StringTrimmerHelper.trimSurroundingWhiteSpace(lambdaArguments.getBodyText());
+        String result =
+                CodeHelper.toText(ConditionalHelper.newTernaryOperation(bodyText.startsWith("\""),
+                        () -> bodyText, () -> "\"" + bodyText + "\""));
+        return CodeHelper.toCode(result);
+    }
+
     @PostMapping("/replace")
     public String replace(@RequestBody LambdaArguments lambdaArguments) {
         String bodyText = lambdaArguments.getBodyText();
@@ -69,5 +88,29 @@ public final class StringController {
         String replaced =
                 replacer.replace(target, numberOfReplacementsPerInstance, replacements, bodyText);
         return CodeHelper.toCode(replaced);
+    }
+
+    @PostMapping("/replace/cased")
+    public String replaceCased(@RequestBody LambdaArguments lambdaArguments) {
+        String bodyText = lambdaArguments.getBodyText();
+        String target = lambdaArguments.getArgument(0);
+        String replacement = lambdaArguments.getArgument(1);
+        String target1 = StringHelper.capitalizeFirstLetter(target);
+        String target2 = StringHelper.decapitalizeFirstLetter(target);
+        String replacement1 = StringHelper.capitalizeFirstLetter(replacement);
+        String replacement2 = StringHelper.decapitalizeFirstLetter(replacement);
+        String replaced = StringReplacementHelper.re place(
+                StringReplacementHelper.replace(bodyText, target1, replacement1), target2,
+                replacement2);
+        return CodeHelper.toCode(replaced);
+    }
+
+    @PostMapping("/tab")
+    public String tabify(@RequestBody LambdaArguments lambdaArguments) {
+        int indent = ConditionalHelper.newTernaryOperation(lambdaArguments.getArgumentsSize() == 0,
+                () -> 0, () -> lambdaArguments.getIntegerArgument(0));
+        String bodyText = lambdaArguments.getBodyText();
+        String result = StringTabifier.newInstance().tabify(bodyText, indent);
+        return CodeHelper.toCode(result);
     }
 }
