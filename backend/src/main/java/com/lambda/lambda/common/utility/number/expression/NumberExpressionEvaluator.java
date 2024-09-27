@@ -3,6 +3,7 @@ package com.lambda.lambda.common.utility.number.expression;
 import java.util.List;
 import com.lambda.lambda.common.helper.ConditionalHelper;
 import com.lambda.lambda.common.helper.number.ComplexNumberHelper;
+import com.lambda.lambda.common.helper.number.DoubleHelper;
 import com.lambda.lambda.common.util.number.ComplexNumber;
 import com.lambda.lambda.common.util.number.evaluator.expression.MathExpression;
 import com.lambda.lambda.common.util.number.evaluator.expression.MathExpressionArguments;
@@ -16,9 +17,12 @@ import com.lambda.lambda.common.util.number.evaluator.util.MathToken;
 public final class NumberExpressionEvaluator {
     public static void main(String[] args) {
         System.out.println("\n\n<<Start>>\n\n");
-        String expression = "e^x";
+        String expression = "0^0";
         String xText = "-2+i";
         String yText = "10";
+        System.out.println(0.0 * Double.POSITIVE_INFINITY);
+        System.out.println(DoubleHelper.ln(0));
+        System.out.println(Math.exp(Double.NEGATIVE_INFINITY));
         System.out.println(xText);
         System.out.println(yText);
         System.out.println(expression);

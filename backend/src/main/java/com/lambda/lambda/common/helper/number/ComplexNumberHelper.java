@@ -70,7 +70,7 @@ public final class ComplexNumberHelper {
         }
         String realText = ConditionalHelper.ifReturnElse(firstPartIsSigned, firstChar + "", "+")
                 + parts.get(0);
-        String imaginarySign = succeedingText.substring(parts.get(0).length());
+        String imaginarySign = succeedingText.charAt(parts.get(0).length()) + "";
         String imaginaryText = imaginarySign + parts.get(1);
         return ComplexNumber.newInstance(Double.parseDouble(realText), 0.0)
                 .add(ComplexNumberHelper.parseImaginaryNumber(imaginaryText));

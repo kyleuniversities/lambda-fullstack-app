@@ -18,6 +18,7 @@ public final class ComplexNumber {
     }
 
     public static ComplexNumber newInstanceFromEulerExponent(ComplexNumber eulerExponent) {
+        System.out.println("euler: " + eulerExponent);
         return ComplexNumber.newInstanceFromRadiusAngle(Math.exp(eulerExponent.a), eulerExponent.b);
     }
 
@@ -76,11 +77,20 @@ public final class ComplexNumber {
         double r1 = this.getRadius();
         double theta1 = this.getAngle();
         double r2 = z.getRadius();
-        double theta2 = this.getAngle();
+        double theta2 = z.getAngle();
         return ComplexNumber.newInstanceFromRadiusAngle(r1 / r2, theta1 - theta2);
     }
 
     public ComplexNumber power(ComplexNumber z) {
+        if (this.isZero() && z.isZero()) {
+            return ComplexNumber.newInstance(Double.NaN, Double.NaN);
+        }
+        if (this.isZero()) {
+            return ComplexNumber.newInstance();
+        }
+        if (z.isZero()) {
+            return ComplexNumber.newInstance(1.0, 0.0);
+        }
         return ComplexNumber.newInstanceFromEulerExponent(this.getEulerExponent().multiply(z));
     }
 
@@ -94,6 +104,10 @@ public final class ComplexNumber {
         double r = this.getRadius();
         double theta = this.getAngle();
         return ComplexNumber.newInstanceFromRadiusAngle(1.0 / r, -theta);
+    }
+
+    public boolean isZero() {
+        return DoubleHelper.doubleEquals(this.a, 0.0) && DoubleHelper.doubleEquals(this.b, 0.0);
     }
 
     // To String Methods
