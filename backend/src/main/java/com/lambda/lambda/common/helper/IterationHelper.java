@@ -3,6 +3,7 @@ package com.lambda.lambda.common.helper;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import com.lambda.lambda.common.helper.number.IntegerHelper;
 
 /**
@@ -65,6 +66,34 @@ public final class IterationHelper {
             }
         }
         return true;
+    }
+
+    /**
+     * While loops through an action
+     */
+    public static void whileLoop(Supplier<Boolean> condition, Runnable action) {
+        while (condition.get()) {
+            action.run();
+        }
+    }
+
+    /**
+     * While loops through a breakable action
+     */
+    public static boolean whileLoop(Supplier<Boolean> condition, Supplier<Boolean> action) {
+        while (condition.get()) {
+            if (!action.get()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * While loops through a breakable action
+     */
+    public static void whileLoopUntilFalse(Supplier<Boolean> action) {
+        IterationHelper.whileLoop(() -> true, action);
     }
 
     /**

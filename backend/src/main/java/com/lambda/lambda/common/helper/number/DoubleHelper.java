@@ -3,7 +3,7 @@ package com.lambda.lambda.common.helper.number;
 import com.lambda.lambda.common.helper.ConditionalHelper;
 
 /**
- * Helper class for String Operations
+ * Helper class for Double Operations
  */
 public final class DoubleHelper {
     /**
@@ -11,6 +11,25 @@ public final class DoubleHelper {
      */
     public static double absoluteValue(double value) {
         return ConditionalHelper.ifReturnElse(value < 0, -value, value);
+    }
+
+    /**
+     * Returns the angle of an (x,y) from the origin to the x-axis
+     */
+    public static double angle(double x, double y) {
+        boolean isHorizontal = DoubleHelper.doubleEquals(y, 0.0);
+        boolean isVertical = DoubleHelper.doubleEquals(x, 0.0);
+        boolean isPast90 = x < 0.0;
+        if (isHorizontal && isVertical) {
+            return 0.0;
+        }
+        if (isVertical && y > 0.0) {
+            return Math.PI / 2;
+        }
+        if (isVertical && y < 0.0) {
+            return 3 * Math.PI / 2;
+        }
+        return Math.atan(y / x) + ConditionalHelper.ifReturnElse(isPast90, Math.PI, 0.0);
     }
 
     /**
@@ -60,6 +79,13 @@ public final class DoubleHelper {
      */
     public static boolean lessThan(double a, double b) {
         return a < b;
+    }
+
+    /**
+     * Returns the natural log of a number
+     */
+    public static double ln(double x) {
+        return Math.log(x) / Math.log(Math.E);
     }
 
     /**

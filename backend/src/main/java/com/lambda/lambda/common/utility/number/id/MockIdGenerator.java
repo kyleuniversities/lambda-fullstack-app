@@ -1,4 +1,4 @@
-package com.lambda.lambda.common.util.number;
+package com.lambda.lambda.common.utility.number.id;
 
 import java.util.List;
 import com.lambda.lambda.common.helper.ConditionalHelper;

@@ -1,6 +1,6 @@
 package com.lambda.lambda.common.helper.number;
 
-import com.lambda.lambda.common.util.number.MockIdGenerator;
+import com.lambda.lambda.common.utility.number.id.MockIdGenerator;
 
 public class IdHelper {
     /**

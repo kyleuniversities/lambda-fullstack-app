@@ -337,6 +337,17 @@ public final class ListHelper {
     }
 
     /**
+     * Converts a character iterable into an List
+     */
+    public static List<Character> toCharacterList(char[] array) {
+        List<Character> list = ListHelper.newArrayList();
+        for (char item : array) {
+            list.add(item);
+        }
+        return list;
+    }
+
+    /**
      * Converts an iterable into an List
      */
     public static <T> List<T> toList(Iterable<T> iterable) {
