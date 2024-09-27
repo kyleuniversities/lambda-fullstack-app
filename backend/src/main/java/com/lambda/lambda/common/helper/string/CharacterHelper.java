@@ -7,12 +7,12 @@ import com.lambda.lambda.common.helper.MapHelper;
  * Helper class for Character Operations
  */
 public class CharacterHelper {
-    private static final Map<Character, Character> PARENTHESES_CHARACTER_MAP = CharacterHelper
-            .makeParentheseCharacterMap();
+    public static final char PI = '\u03C0';
+    private static final Map<Character, Character> PARENTHESES_CHARACTER_MAP =
+            CharacterHelper.makeParentheseCharacterMap();
 
     /**
-     * Gets corresponding closing parentheses character to opening parentheses
-     * character
+     * Gets corresponding closing parentheses character to opening parentheses character
      */
     public static char getClosingParenthesesCharacter(char openingParenthesesCharacter) {
         return CharacterHelper.PARENTHESES_CHARACTER_MAP.get(openingParenthesesCharacter);
@@ -40,8 +40,7 @@ public class CharacterHelper {
     }
 
     /**
-     * Makes a map mapping opening parentheses characters to closing parentheses
-     * characters
+     * Makes a map mapping opening parentheses characters to closing parentheses characters
      */
     private static Map<Character, Character> makeParentheseCharacterMap() {
         Map<Character, Character> parentheseCharacterMap = MapHelper.newLinkedHashMap();

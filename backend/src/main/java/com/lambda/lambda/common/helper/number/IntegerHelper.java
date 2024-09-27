@@ -22,6 +22,13 @@ public final class IntegerHelper {
     }
 
     /**
+     * Operation for is digit
+     */
+    public static boolean isDigit(char ch) {
+        return ch >= '0' && ch <= '9';
+    }
+
+    /**
      * Gets the length of an integer
      */
     public static int length(int value) {

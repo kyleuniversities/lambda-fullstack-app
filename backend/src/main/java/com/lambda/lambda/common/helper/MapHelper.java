@@ -9,6 +9,8 @@ import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import com.lambda.lambda.common.util.entry.Entry;
+import com.lambda.lambda.common.util.map.BiMap;
+import com.lambda.lambda.common.util.map.LinkedHashBiMap;
 
 /**
  * Helper class for Map Operations
@@ -64,6 +66,13 @@ public final class MapHelper {
     }
 
     /**
+     * Checks if a map is empty
+     */
+    public static <K, V> boolean isEmpty(Map<K, V> map) {
+        return map.isEmpty();
+    }
+
+    /**
      * Maps the values of a Map
      */
     public static <K, V, W> Map<K, W> mapValues(Map<K, V> map, Function<V, W> mapping) {
@@ -73,10 +82,24 @@ public final class MapHelper {
     }
 
     /**
+     * Creates a new BiMap
+     */
+    public static <K, V> BiMap<K, V> newBiMap() {
+        return MapHelper.newLinkedHashBiMap();
+    }
+
+    /**
      * Creates a new Hash Map
      */
     public static <K, V> HashMap<K, V> newHashMap() {
         return new HashMap<>();
+    }
+
+    /**
+     * Creates a new Linked Hash BiMap
+     */
+    public static <K, V> LinkedHashBiMap<K, V> newLinkedHashBiMap() {
+        return LinkedHashBiMap.newInstance();
     }
 
     /**
@@ -94,12 +117,26 @@ public final class MapHelper {
     }
 
     /**
+     * Converts a Map to a Key List
+     */
+    public static <K, V> List<K> toKeyList(Map<K, V> map) {
+        return ListHelper.map(MapHelper.toEntryList(map), (Entry<K, V> entry) -> entry.getKey());
+    }
+
+    /**
      * Converts a Map to an Entry List
      */
     public static <K, V> List<Entry<K, V>> toEntryList(Map<K, V> map) {
         List<Entry<K, V>> entryList = ListHelper.newArrayList();
         MapHelper.forEach(map, (K key, V value) -> entryList.add(EntryHelper.newEntry(key, value)));
         return entryList;
+    }
+
+    /**
+     * Converts a Map to a Value List
+     */
+    public static <K, V> List<V> toValueList(Map<K, V> map) {
+        return ListHelper.map(MapHelper.toEntryList(map), (Entry<K, V> entry) -> entry.getValue());
     }
 
     /**

@@ -1,0 +1,5 @@
+package com.lambda.lambda.common.util.number.evaluator.util;
+
+public enum MathTokens {
+    NUMBER_LITERAL, PLUS, MINUS, TIMES, DIVIDED_BY, TO_THE_POWER_OF, LEFT_PARENTHESES, RIGHT_PARENTHESES, LEFT_BRACKET, RIGHT_BRACKET, LEFT_BRACE, RIGHT_BRACE, PI, E, LN, COS, SIN, TAN, SEC, CSC, COT, X, Y, END
+}

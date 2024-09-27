@@ -19,10 +19,24 @@ import com.lambda.lambda.common.util.wrapper.IntegerWrapper;
  */
 public final class StringHelper {
     /**
+     * Appends an object to a String Builder
+     */
+    public static void appendText(StringBuilder builder, Object text) {
+        builder.append(text + "");
+    }
+
+    /**
      * Capitalizes the first letter of a String
      */
     public static String capitalizeFirstLetter(String text) {
         return text.substring(0, 1).toUpperCase() + text.substring(1);
+    }
+
+    /**
+     * Decapitalizes the first letter of a String
+     */
+    public static String decapitalizeFirstLetter(String text) {
+        return text.substring(0, 1).toLowerCase() + text.substring(1);
     }
 
     /**
@@ -221,8 +235,8 @@ public final class StringHelper {
      */
     public static List<Integer> listIndices(String text, char target) {
         List<Integer> indices = ListHelper.newArrayList();
-        StringHelper.forEach(text,
-                (Integer i, Character ch) -> ConditionalHelper.ifThen(target == ch, () -> indices.add(i)));
+        StringHelper.forEach(text, (Integer i, Character ch) -> ConditionalHelper
+                .ifThen(target == ch, () -> indices.add(i)));
         return indices;
     }
 
@@ -290,8 +304,7 @@ public final class StringHelper {
     }
 
     /**
-     * Returns a substring of a text from the lengths of target texts depicting the
-     * last from the
+     * Returns a substring of a text from the lengths of target texts depicting the last from the
      * endpoints to be removed.
      */
     public static String substringFromEndpointTexts(String text, String startText,
@@ -300,8 +313,7 @@ public final class StringHelper {
     }
 
     /**
-     * Returns a substring of a text removing characters from the start of the
-     * string, the amount to
+     * Returns a substring of a text removing characters from the start of the string, the amount to
      * be removed depicted by the length of a specified string
      */
     public static String substringFromStartText(String text, String startText) {
@@ -309,8 +321,7 @@ public final class StringHelper {
     }
 
     /**
-     * Returns a substring of a text removing characters from the end of the string,
-     * the amount to
+     * Returns a substring of a text removing characters from the end of the string, the amount to
      * be removed depicted by the length of a specified string
      */
     public static String substringFromUpToText(String text, String upToText) {
@@ -318,8 +329,7 @@ public final class StringHelper {
     }
 
     /**
-     * Returns a substring of a text removing characters from the end of the string,
-     * the amount to
+     * Returns a substring of a text removing characters from the end of the string, the amount to
      * be removed depicted by a specified length
      */
     public static String substringFromUpToTextLength(String text, int upToTextLength) {
