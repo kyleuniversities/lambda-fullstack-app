@@ -99,7 +99,7 @@ public final class StringController {
         String target2 = StringHelper.decapitalizeFirstLetter(target);
         String replacement1 = StringHelper.capitalizeFirstLetter(replacement);
         String replacement2 = StringHelper.decapitalizeFirstLetter(replacement);
-        String replaced = StringReplacementHelper.re place(
+        String replaced = StringReplacementHelper.replace(
                 StringReplacementHelper.replace(bodyText, target1, replacement1), target2,
                 replacement2);
         return CodeHelper.toCode(replaced);

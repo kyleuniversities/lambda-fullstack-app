@@ -36,8 +36,8 @@ const LambdaMessageArea = (props: { value: string }): JSX.Element => {
   return (
     <LabeledTextArea
       title="Message"
-      containerHeight="220px"
-      textAreaHeight="175px"
+      containerHeight="180px"
+      textAreaHeight="140px"
       placeholder=""
       disabled={true}
       value={props.value}
@@ -70,8 +70,8 @@ const LambdaBodyArea = (props: {
   return (
     <LabeledTextArea
       title="Body"
-      containerHeight="230px"
-      textAreaHeight="190px"
+      containerHeight="270px"
+      textAreaHeight="230px"
       disabled={false}
       placeholder="Enter the body parameter of your command"
       value={props.value}

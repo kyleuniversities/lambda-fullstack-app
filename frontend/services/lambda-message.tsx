@@ -26,4 +26,10 @@ const messages = [
   () => `run number/double/divide ${nextRange(500, 1000)} ${nextRange(1, 100)}`,
   () =>
     `run number/double/subtract ${nextRange(100, 1000)} ${nextRange(1, 100)}`,
+  () => `run number/double/evaluate "x^2+y^2" 6 8`,
+  () =>
+    `run number/double/evaluate "x^2+y^2" ${nextRange(1, 30)} ${nextRange(1, 30)}`,
+  () =>
+    `run number/double/evaluate "e^{x^2+2xy+y^2}" ${nextRange(1, 20) / 10} ${nextRange(1, 20) / 10}`,
+  () => `run number/double/evaluate "x+e^{yiπ/2}" 2 1`,
 ];

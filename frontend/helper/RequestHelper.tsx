@@ -5,7 +5,7 @@ import { StringMap } from "../common/util/string";
 const DEFAULT_HOST = "http://localhost:8080";
 const encodeArray = (array: string[]): string[] => {
   return ArrayHelper.map(array, (item: string) =>
-    StringCodeHelper.toCode(item),
+    StringCodeHelper.toCode(item.replaceAll("π", "\\\\pi")),
   );
 };
 const encodeMap = (map: StringMap): StringMap => {
@@ -49,6 +49,9 @@ export class RequestHelper {
       .then((data) => data.json())
       .catch((error) => {
         console.log("ERROR_MESSAGE: " + error.message);
+        return {
+          message: error.message,
+        };
       });
   }
 }

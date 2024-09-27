@@ -35,14 +35,20 @@ public final class DoubleController {
     public String evaluate(@RequestBody LambdaArguments lambdaArguments) {
         int numberOfArguments = lambdaArguments.getArgumentsSize();
         String expression = lambdaArguments.getArgument(0);
-        ComplexNumber x = ConditionalHelper.newTernaryOperation(numberOfArguments < 2,
-                () -> ComplexNumber.newInstance(),
-                () -> ComplexNumberHelper.parseComplexNumber(lambdaArguments.getArgument(1)));
-        ComplexNumber y = ConditionalHelper.newTernaryOperation(numberOfArguments < 3,
-                () -> ComplexNumber.newInstance(),
-                () -> ComplexNumberHelper.parseComplexNumber(lambdaArguments.getArgument(2)));
-        String result = NumberExpressionEvaluator.newInstance().evaluate(expression, x, y);
-        return CodeHelper.toCode(result);
+        try {
+            ComplexNumber x = ConditionalHelper.newTernaryOperation(numberOfArguments < 2,
+                    () -> ComplexNumber.newInstance(),
+                    () -> ComplexNumberHelper.parseComplexNumber(lambdaArguments.getArgument(1)));
+            ComplexNumber y = ConditionalHelper.newTernaryOperation(numberOfArguments < 3,
+                    () -> ComplexNumber.newInstance(),
+                    () -> ComplexNumberHelper.parseComplexNumber(lambdaArguments.getArgument(2)));
+            String result = NumberExpressionEvaluator.newInstance().evaluate(expression, x, y);
+            return CodeHelper.toCode(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return CodeHelper.toCode(
+                    "Error: Unable to parse function arguments. Please check the formatting of the function arguments");
+        }
     }
 
     @PostMapping("/multiply")

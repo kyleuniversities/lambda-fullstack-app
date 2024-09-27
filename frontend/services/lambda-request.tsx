@@ -8,14 +8,23 @@ export const lambdaRequest = async (
   body: string,
 ): Promise<string> => {
   const inputParts = InputHelper.splitInputText(StringMap.newInstance(), input);
-  const rawOutput = await RequestHelper.request(
-    "POST",
-    inputParts[1],
-    inputParts.slice(2),
-    body,
-    StringMap.newInstance(),
-  );
-  const codeOutput = JSON.stringify(rawOutput);
-  const output = StringCodeHelper.toText(codeOutput);
-  return output;
+  try {
+    const rawOutput = await RequestHelper.request(
+      "POST",
+      inputParts[1],
+      inputParts.slice(2),
+      body,
+      StringMap.newInstance(),
+    );
+    const codeOutput = JSON.stringify(rawOutput);
+    if (!codeOutput.startsWith('"')) {
+      throw new Error(
+        "Unable to perform command.  Please check the formatting of the command's parameters.",
+      );
+    }
+    const output = StringCodeHelper.toText(codeOutput);
+    return output;
+  } catch (error) {
+    return "Error: Unable to process your command.  Please check the formatting of your command parameters.";
+  }
 };
